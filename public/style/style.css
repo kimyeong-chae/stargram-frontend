@@ -1,8 +1,53 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+
+.arrow_bg_1 {
+  width: 13.5px;
+  height: 14px;
+  object-fit: contain;
+}
+
+.login-title {
+  font-family: NotoSansKR;
+  font-size: 18px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.03;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000000;
+}
+
+.login-container {
+  margin-left: 31.5px;
+}
+
+.login-container > .input-container {
+  margin-top: 51px;
+}
+
+.input-field {
+  margin-top:4px !important;
+  margin-bottom:4px !important;
+}
+
+.hint{
+  height: 11px;
+  font-family: NotoSansKR;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 3.04;
+  letter-spacing: normal;
+  text-align: left;
+  color: #b7b7b7;
+  border-bottom-color: #b7b7b7;;
 }
