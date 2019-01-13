@@ -8,11 +8,17 @@ a {
 
 
 .arrow-back {
-  width: 13.5px;
-  height: 14px;
-  object-fit: contain;
+    cursor: pointer;
+    width: 13.5px;
+    height: 14px;
+    object-fit: contain;
 }
 
+/**
+ * -------------------------------------------------------------------------------------
+ * 로그인 관련 스타일 속성
+ * -------------------------------------------------------------------------------------
+ */
 .login-nav-top > .login-nav-title {
     text-align: center !important;
     font-family: Arial;

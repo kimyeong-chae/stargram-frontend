@@ -1,12 +1,54 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet">
 <!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/1.11.1/i18next.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>
+    let lang = getLang();
     $(document).ready(function(){
         $(".arrow-back").on('click', () => {
             history.back();
         });
+
+        $.i18n.init({
+            lng: lang,
+            useLocalStorage: false,
+            localStorageExpirationTime: 86400000, // in ms, default 1 week
+            resGetPath: '/locales/__lng__.json',
+            fallbackLng: false
+        }, function(t) {
+            console.log('t : ',t);
+            initLang(lang);
+        });
     });
+
+    function initLang(lang) {
+        setLang(lang);
+        i18n.setLng(lang, () => {
+            $('body').i18n();
+            $('button[data-lang]').removeClass('active');
+            $('button[data-lang='+lang+']').addClass('active');
+        });
+    }
+
+    /**
+     * 선택 언어 저장
+     */
+    function setLang(_lang) {
+        if(!_lang) return;
+        $.cookie('lang', _lang);
+        document.documentElement.lang=_lang;
+    }
+
+    /**
+     * 선택 언어 가져오기
+     */
+    function getLang() {
+        let _lang = $.cookie('lang')||document.documentElement.lang||'ko';
+        setLang(_lang);
+        return _lang;
+    }
+
 </script>

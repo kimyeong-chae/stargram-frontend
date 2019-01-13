@@ -1,0 +1,11 @@
+{
+
+  "login" : {
+    "tEmailLogin": "Email Login",
+    "iEmail": "Input Email Adress",
+    "iPw": "Input Password",
+    "tLogin": "Login",
+    "tForgotPw": "Forgot Password?"
+  }
+
+}
