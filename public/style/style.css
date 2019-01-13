@@ -13,8 +13,35 @@ a {
   object-fit: contain;
 }
 
+.login-nav-top > .login-nav-title {
+    text-align: center !important;
+    font-family: Arial;
+    font-size: 25.3px;
+    font-weight: 900;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.65;
+    letter-spacing: normal;
+    text-align: left;
+    color: #ffffff;
+}
+
+.login-nav-top > .login-nav-sub-title {
+    text-align: center !important;
+    font-family: Noto Sans KR, sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.21;
+    letter-spacing: normal;
+    color: #ffffff;
+    margin-top: 11px;
+    margin-bottom: 10.5px;
+}
+
 .login-title {
-  font-family: NotoSansKR;
+  font-family: Noto Sans KR, sans-serif;
   font-size: 18px;
   font-weight: bold;
   font-style: normal;
@@ -40,7 +67,7 @@ a {
 
 .hint{
   height: 11px;
-  font-family: NotoSansKR;
+  font-family: Noto Sans KR, sans-serif;
   font-size: 12px;
   font-weight: normal;
   font-style: normal;
@@ -54,7 +81,7 @@ a {
 
 .login-sub-title {
     height: 12.5px;
-    font-family: NotoSansKR;
+    font-family: Noto Sans KR, sans-serif;
     font-size: 13px;
     font-weight: normal;
     font-style: normal;
@@ -63,4 +90,13 @@ a {
     letter-spacing: normal;
     text-align: left;
     color: #6d6d6d;
+}
+
+.login-nav-top {
+    height: 105vw;
+    background-image: linear-gradient(to bottom, #8e68ff, #6633ff);
+}
+
+.login-nav-bottom {
+    padding-top: 27px;
 }
