@@ -51,3 +51,16 @@ a {
   color: #b7b7b7;
   border-bottom-color: #b7b7b7;;
 }
+
+.login-sub-title {
+    height: 12.5px;
+    font-family: NotoSansKR;
+    font-size: 13px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2.81;
+    letter-spacing: normal;
+    text-align: left;
+    color: #6d6d6d;
+}
