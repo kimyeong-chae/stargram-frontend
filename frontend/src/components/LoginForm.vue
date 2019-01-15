@@ -38,7 +38,7 @@ export default {
     align-content: center;
   }
   #login-title {
-    font-size: 18px;
+    font-size: 17.5px;
     font-weight: bold;
     color: #000000;
   }

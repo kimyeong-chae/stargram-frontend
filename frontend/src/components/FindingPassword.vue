@@ -1,6 +1,6 @@
 <template>
-  <div class="row">
-    <div class="col s10">
+  <div id="find-password" class="row center">
+    <div class="col s12">
       <u>비밀번호를 잊으셨나요?</u>
     </div>
   </div>
@@ -13,4 +13,9 @@ export default {
 </script>
 
 <style scoped>
+@media screen and (max-width: 320px) {
+  #find-password {
+    margin: 0px 31px;
+  }
+}
 </style>
