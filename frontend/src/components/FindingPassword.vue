@@ -1,8 +1,8 @@
 <template>
-  <div id="find-password" class="row center">
-    <div class="col s12">
-      <u>비밀번호를 잊으셨나요?</u>
-    </div>
+  <div class="row center">
+    <a href="#" class="col s12">
+      <span>비밀번호를 잊으셨나요?</span>
+    </a>
   </div>
 </template>
 
@@ -14,8 +14,21 @@ export default {
 
 <style scoped>
 @media screen and (max-width: 320px) {
-  #find-password {
-    margin: 0px 31px;
+  .col {
+    padding: 0px;
+    margin: 0px;
+    font-family: NotoSansKR;
+    font-size: 12px;
+    color: #b7b7b7;
+  }
+  div {
+    margin: 0px;
+  }
+  span {
+    width: 120px;
+    text-decoration: none;
+    border-bottom: 1px solid #b7b7b7;
+    padding-bottom: 3px;
   }
 }
 </style>
