@@ -3,16 +3,25 @@
 import Vue from 'vue';
 import axios from 'axios';
 import Materialize from 'materialize-css';
+import 'materialize-css/dist/css/materialize.min.css';
 import VeeValidate from 'vee-validate';
-import '../node_modules/materialize-css/dist/css/materialize.min.css';
+import ko from 'vee-validate/dist/locale/ko';
 import App from './App';
 import router from './router';
 
-Vue.prototype.$axios = axios;
+Vue.prototype.$http = axios;
 Vue.config.productionTip = false;
 
 Vue.use(Materialize);
-Vue.use(VeeValidate);
+
+const config = {
+  locale: 'ko',
+  dictionary: {
+    ko,
+  },
+};
+
+Vue.use(VeeValidate, config);
 
 /* eslint-disable no-new */
 new Vue({
