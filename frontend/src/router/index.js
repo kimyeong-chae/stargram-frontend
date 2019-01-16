@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from '../pages/Home';
-import LoginPage from '../pages/Login';
+import LoginSocial from '../pages/LoginSocial';
+import LoginEmail from '../pages/LoginEmail';
 import Join from '../pages/Registration';
 import Profile from '../pages/Profile';
-import FindingUserInfo from '../pages/FindingUserInfo';
+import FindingPassword from '../pages/FindingPassword';
 
 Vue.use(Router);
 
@@ -12,13 +12,17 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home,
+      name: 'index',
     },
     {
-      path: '/login',
-      name: 'LoginPage',
-      component: LoginPage,
+      path: '/login/social',
+      name: 'LoginSocial',
+      component: LoginSocial,
+    },
+    {
+      path: '/login/email',
+      name: 'LoginEmail',
+      component: LoginEmail,
     },
     {
       path: '/registration',
@@ -32,8 +36,8 @@ export default new Router({
     },
     {
       path: '/finding-password',
-      name: 'FindPassword',
-      component: FindingUserInfo,
+      name: 'FindingPassword',
+      component: FindingPassword,
     },
   ],
 });
