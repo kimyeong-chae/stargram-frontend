@@ -1,9 +1,10 @@
 <template>
-  <div id="login-container">
-    <h1>이메일 로그인</h1>
+  <div id="finding-container">
+    <h1>비밀번호를 잊으셨나요</h1>
     <div id="input-container" class="row">
+      <h2>비밀번호를 재설정하려는 이메일을 입력해주세요.</h2>
       <form class="col s12" @submit.prevent="onSubmit">
-        <div class="row center">
+        <div class="row">
           <div class="input-field col s12" :class="{error: errors.has('email')}">
             <input
               type="email"
@@ -14,21 +15,10 @@
             >
             <span class="col s12" v-if="errors.has('email')">{{errors.first('email')}}</span>
           </div>
-          <div class="input-field col s12" :class="{error: errors.has('password')}">
-            <input
-              type="password"
-              name="password"
-              placeholder="비밀번호 입력"
-              v-validate="'required|min:6'"
-              v-model="password"
-            >
-            <span class="col s12" v-if="errors.has('password')">{{errors.first('password')}}</span>
-          </div>
         </div>
-
-        <div class="row center">
+        <div class="row">
           <div class="col s12">
-            <input type="submit" :class="checkForm" class="btn" value="로그인">
+            <input type="submit" :class="checkForm" class="btn" value="이메일 전송">
           </div>
         </div>
       </form>
@@ -38,11 +28,10 @@
 
 <script>
 export default {
-  name: 'LoginForm',
+  name: 'FidingPassword',
   data() {
     return {
       email: '',
-      password: '',
     };
   },
   methods: {
@@ -52,7 +41,7 @@ export default {
   },
   computed: {
     checkForm() {
-      if (this.email !== '' && this.password !== '' && !this.errors.any()) {
+      if (this.email !== '' && !this.errors.any()) {
         return { 'correct-value': true };
       }
       return { 'correct-value': false };
@@ -66,14 +55,23 @@ export default {
   h1 {
     font-size: 18px;
     font-weight: bold;
-    margin: 0px 0px 40px 0px;
+    margin: 0px 0px 25.5px 0px;
+  }
+  h2 {
+    font-size: 13px;
+    color: #6d6d6d;
+    overflow: hidden;
+    margin: 0px 0px 39px 0px;
   }
   .col {
     padding: 0px;
     margin: 0px;
   }
-  #login-container {
-    margin: 0px 31px;
+  .row {
+    margin: 0px 0px 20px 0px;
+  }
+  #finding-container {
+    margin: 0px 25px 0px 31px;
     padding: 0px;
   }
   #input-container {

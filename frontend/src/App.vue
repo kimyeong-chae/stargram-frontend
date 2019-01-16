@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="header">
-      <NavBar/>
+      <nav-bar v-show="$route.path === '/' ? false : true"/>
     </div>
 
     <div class="section">
@@ -22,7 +22,13 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans+KR");
+
 .main {
-  font-family: NotoSansKR;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.section {
+  padding: 0px;
 }
 </style>
