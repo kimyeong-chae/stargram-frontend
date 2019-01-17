@@ -34,13 +34,14 @@
       </form>
     </div>
 
-    <router-link to="/finding-password">
-      <div class="row center">
-        <div class="col s12">
+
+    <div class="row center">
+      <div class="col s12">
+        <router-link to="/finding-password">
           <span class="find-password">비밀번호를 잊으셨나요?</span>
-        </div>
+        </router-link>
       </div>
-    </router-link>
+    </div>
   </div>
 </template>
 
