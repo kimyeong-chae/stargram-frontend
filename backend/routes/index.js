@@ -1,13 +1,9 @@
 var express = require('express');
+var path = require('path');
 var router = express.Router();
 
-/* GET home page. */
 router.get('/', (req, res, next) => {
-  res.send();
-});
-
-router.get('/login', (req, res, next) => {
-  res.send();
+  res.sendFile(path.join(__dirname, '../public', 'index.html'))
 });
 
 module.exports = router;
