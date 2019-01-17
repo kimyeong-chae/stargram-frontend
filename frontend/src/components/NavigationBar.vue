@@ -2,7 +2,7 @@
   <div class="nav-bar">
     <div class="arrow-btn">
       <img
-        @tap="$router.go(-1)"
+        @click="$router.go(-1)"
         class="arrow-img"
         src="../images/arrow-bg-1.png"
         srcset="../images/arrow-bg-1.png 2x, ../images/arrow-bg-1.png 3x"
