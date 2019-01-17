@@ -76,65 +76,61 @@ export default {
 </script>
 
 <style scoped>
-@media screen and (max-width: 320px) {
-  h1 {
-    font-size: 18px;
-    font-weight: bold;
-    margin: 0px 0px 40px 0px;
-  }
-  .col {
-    padding: 0px;
-    margin: 0px;
-  }
-  .row {
-    margin: 0px 0px 20px 0px;
-  }
-  #login-container {
-    margin: 0px 31px;
-    padding: 0px;
-  }
-  #input-container {
-    align-content: center;
-    padding: 0px;
-  }
-  .input-field input[type="email"] {
-    width: 258px;
-    padding: 0px;
-  }
-  .input-field input[type="password"] {
-    width: 258px;
-    padding: 0px;
-  }
-  .input-field input[type="email"]:focus {
-    border-bottom: 1px solid #7d51ff;
-  }
-  .input-field input[type="password"]:focus {
-    border-bottom: 1px solid #7d51ff;
-  }
-  .btn {
-    width: 258px;
-    height: auto;
-    padding: 0px;
-    font-size: 12px;
-    font-weight: bold;
-    color: #b4b4b4;
-    border-radius: 2px;
-    background-color: #efefef;
-    box-shadow: 0px 0px;
-  }
-  .correct-value {
-    background-color: #7d51ff;
-  }
-  .find-password {
-    width: 120px;
-    text-decoration: none;
-    border-bottom: 1px solid #b7b7b7;
-    padding-bottom: 3px;
-    font-size: 12px;
-    color: #b7b7b7;
-  }
-  span {
-    font-size: 11px;
-  }
+h1 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0px 0px 40px 0px;
+}
+.col {
+  padding: 0px;
+  margin: 0px;
+}
+.row {
+  margin: 0px 0px 20px 0px;
+}
+#login-container {
+  margin: 0px 31px;
+  padding: 0px;
+}
+#input-container {
+  align-content: center;
+  padding: 0px;
+}
+.input-field input[type="email"] {
+  padding: 0px;
+}
+.input-field input[type="password"] {
+  padding: 0px;
+}
+.input-field input[type="email"]:focus {
+  border-bottom: 1px solid #7d51ff;
+}
+.input-field input[type="password"]:focus {
+  border-bottom: 1px solid #7d51ff;
+}
+.btn {
+  width: 100%;
+  height: auto;
+  padding: 0px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #b4b4b4;
+  border-radius: 2px;
+  background-color: #efefef;
+  box-shadow: 0px 0px;
+}
+.correct-value {
+  background-color: #7d51ff;
+}
+.find-password {
+  width: 120px;
+  text-decoration: none;
+  border-bottom: 1px solid #b7b7b7;
+  padding-bottom: 3px;
+  font-size: 12px;
+  color: #b7b7b7;
+}
+span {
+  font-size: 11px;
 }
 </style>

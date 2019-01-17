@@ -18,16 +18,14 @@ export default {
 </script>
 
 <style scoped>
-@media screen and (max-width: 320px) {
-  .nav-bar {
-    margin-left: 17px;
-    margin-top: 15.5px;
-    margin-bottom: 34.5px;
-  }
-  .arrow-img {
-    width: 13.5px;
-    height: 14px;
-    object-fit: contain;
-  }
+.nav-bar {
+  margin-left: 17px;
+  margin-top: 15.5px;
+  margin-bottom: 34.5px;
+}
+.arrow-img {
+  width: 13.5px;
+  height: 14px;
+  object-fit: contain;
 }
 </style>
