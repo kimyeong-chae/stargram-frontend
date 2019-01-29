@@ -5,13 +5,10 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
 const index = require('./routes/index');
-const login = require('./routes/login');
+const member = require('./routes/member');
+const s3 = require('./routes/s3');
 
 const app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -20,7 +17,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/', login);
+app.use('/', member);
+app.use('/', s3);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -35,7 +33,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send({body : err});
 });
 
 module.exports = app;
