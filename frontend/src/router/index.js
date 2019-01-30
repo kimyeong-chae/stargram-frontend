@@ -5,6 +5,7 @@ import LoginEmail from '../pages/LoginEmail';
 import Join from '../pages/Registration';
 import Profile from '../pages/Profile';
 import FindingPassword from '../pages/FindingPassword';
+import Notice from '../pages/Notice';
 
 Vue.use(Router);
 
@@ -23,6 +24,11 @@ export default new Router({
       path: '/login/email',
       name: 'LoginEmail',
       component: LoginEmail,
+    },
+    {
+      path: '/notice',
+      name: 'Notice',
+      component: Notice,
     },
     {
       path: '/registration',
