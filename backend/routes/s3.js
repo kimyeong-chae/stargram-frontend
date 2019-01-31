@@ -23,14 +23,12 @@ var config = {
 router.get('/aws-image/profile/:fileName', (req,res,next) => {
     config.params['Key'] = `profile/${req.params.fileName}`;
     let img = downloader(config);
-    console.log('img : ',img);
     img.pipe(res);
 });
 
 router.get('/aws-video/project/:fileName', (req,res,next) => {
     config.params['Key'] = `project/${req.params.fileName}`;
     let video = downloader(config);
-    console.log('video : ',video);
     video.pipe(res);
 });
 
