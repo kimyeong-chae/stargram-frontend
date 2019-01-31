@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "stargram_test",
+    "password": "stargram0112",
+    "database": "stargram_test",
+    "host": "54.180.157.233",
+    "dialect": "mysql"
+  }
+}
