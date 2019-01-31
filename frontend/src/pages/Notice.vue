@@ -1,27 +1,29 @@
 <template>
-  <v-layout row wrap>
-    <v-flex xs12 sm6>
-      <tool-bar :title="menu.title"></tool-bar>
+  <v-container fluid class="pa-0 text-xs-center">
+    <tool-bar :title="menu.title"></tool-bar>
 
-      <v-list subheader two-line>
-        <v-list-group v-for="item in items" :key="item.title">
-          <v-list-tile class="outter-content" slot="activator">
-            <v-list-tile-content>
-              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-              <v-list-tile-sub-title>{{ getDateToString(item.date) }}</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-divider></v-divider>
+    <v-layout row wrap>
+      <v-flex xs12 sm6>
+        <v-list subheader two-line>
+          <v-list-group v-for="item in items" :key="item.title">
+            <v-list-tile class="outter-content" slot="activator">
+              <v-list-tile-content>
+                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                <v-list-tile-sub-title>{{ getDateToString(item.date) }}</v-list-tile-sub-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-divider></v-divider>
 
-          <v-list-tile class="inner-content" v-for="subitem in item.items" :key="subitem.title">
-            <v-list-tile-content>
-              <v-list-tile-title>{{ subitem.title }}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list-group>
-      </v-list>
-    </v-flex>
-  </v-layout>
+            <v-list-tile class="inner-content" v-for="subitem in item.items" :key="subitem.title">
+              <v-list-tile-content>
+                <v-list-tile-title>{{ subitem.title }}</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list-group>
+        </v-list>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
