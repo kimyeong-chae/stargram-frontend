@@ -1,7 +1,7 @@
 <template>
   <v-app class="white">
     <side-bar/>
-    <v-container class="pa-0" fill-height>
+    <v-container class="pa-0">
       <router-view></router-view>
     </v-container>
   </v-app>
