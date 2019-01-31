@@ -1,8 +1,10 @@
 <template>
-  <div>
+  <v-app class="white">
     <side-bar/>
-    <router-view></router-view>
-  </div>
+    <v-container class="pa-0" fill-height>
+      <router-view></router-view>
+    </v-container>
+  </v-app>
 </template>
 
 <script>
