@@ -3,7 +3,7 @@ import Router from 'vue-router';
 import LoginSocial from '../pages/LoginSocial';
 import LoginEmail from '../pages/LoginEmail';
 import Join from '../pages/Registration';
-import Profile from '../pages/Profile';
+import EditProfile from '../pages/EditProfile';
 import FindingPassword from '../pages/FindingPassword';
 import Notice from '../pages/Notice';
 
@@ -36,9 +36,9 @@ export default new Router({
       component: Join,
     },
     {
-      path: '/profile',
-      name: 'Profile',
-      component: Profile,
+      path: '/edit-profile',
+      name: 'EditProfile',
+      component: EditProfile,
     },
     {
       path: '/finding-password',
