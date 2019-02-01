@@ -30,7 +30,6 @@
           ref="form"
           @submit.prevent="submit"
           v-model="valid"
-          lazy-validation
         >
           <v-text-field
             v-model="nickname"
