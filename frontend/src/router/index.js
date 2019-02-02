@@ -1,11 +1,13 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import LoginSocial from '../pages/LoginSocial';
-import LoginEmail from '../pages/LoginEmail';
-import Join from '../pages/Registration';
+
 import EditProfile from '../pages/EditProfile';
 import FindingPassword from '../pages/FindingPassword';
+import LoginEmail from '../pages/LoginEmail';
+import LoginSocial from '../pages/LoginSocial';
 import Notice from '../pages/Notice';
+import ProfileCoin from '../pages/ProfileCoin';
+import Registration from '../pages/Registration';
 
 Vue.use(Router);
 
@@ -16,14 +18,24 @@ export default new Router({
       name: 'index',
     },
     {
-      path: '/login/social',
-      name: 'LoginSocial',
-      component: LoginSocial,
+      path: '/edit-profile',
+      name: 'EditProfile',
+      component: EditProfile,
+    },
+    {
+      path: '/finding-password',
+      name: 'FindingPassword',
+      component: FindingPassword,
     },
     {
       path: '/login/email',
       name: 'LoginEmail',
       component: LoginEmail,
+    },
+    {
+      path: '/login/social',
+      name: 'LoginSocial',
+      component: LoginSocial,
     },
     {
       path: '/notice',
@@ -33,17 +45,12 @@ export default new Router({
     {
       path: '/registration',
       name: 'registration',
-      component: Join,
+      component: Registration,
     },
     {
-      path: '/edit-profile',
-      name: 'EditProfile',
-      component: EditProfile,
-    },
-    {
-      path: '/finding-password',
-      name: 'FindingPassword',
-      component: FindingPassword,
+      path: '/profile/coin',
+      name: 'ProfileCoin',
+      component: ProfileCoin,
     },
   ],
 });
