@@ -6,7 +6,6 @@ import FindingPassword from '../pages/FindingPassword';
 import LoginEmail from '../pages/LoginEmail';
 import LoginSocial from '../pages/LoginSocial';
 import Notice from '../pages/Notice';
-import ProfileCoin from '../pages/ProfileCoin';
 import Registration from '../pages/Registration';
 
 Vue.use(Router);
@@ -47,10 +46,10 @@ export default new Router({
       name: 'registration',
       component: Registration,
     },
-    {
-      path: '/profile/coin',
-      name: 'ProfileCoin',
-      component: ProfileCoin,
-    },
+    // {
+    //   path: '/profile/coin',
+    //   name: 'ProfileCoin',
+    //   component: ProfileCoin,
+    // },
   ],
 });
