@@ -1,12 +1,12 @@
 const express = require('express');
 const path = require('path');
 const router = express.Router();
+const Model = require('../models');
 
-
+// AWS S3
 const AWS = require("aws-sdk");
 AWS.config.loadFromPath(__dirname + "/../config/awsconfig.json");
 const s3 = new AWS.S3();
-
 const multer = require("multer");
 const multerS3 = require('multer-s3');
 const upload = multer({
@@ -21,15 +21,53 @@ const upload = multer({
     })
 })
 
-router.get('/upload', function(req, res, next) {
-    res.render('upload');
+
+/**
+ * 회원 등록
+ */
+router.post('/member', (req, res ,next) => {
+    Model.Member.create({
+        idMember: req.body.idMember,
+    }).then(member => {
+        res.json(member);
+    }).catch(err => {
+        res.send(500);
+    });
+
+
 });
 
-router.post('/upload', upload.single("imgFile"), function(req, res, next){
+/**
+ * 회원 조회
+ */
+router.get('/member/:idMember', (req, res ,next) => {
+    Model.Member.findOne({
+        where: {
+            idMember: req.params.idMember,
+        }
+    }).then(member => {
+        res.json(member);
+    }).catch(err => {
+        res.send(500, err);
+    });
+});
+
+/**
+ * 회원 프로필 등록 및 수정
+ */
+router.post('/member/:idMember/profile', upload.single("imgFile"), (req, res, next) => {
     let imgFile = req.file;
-    //TODO 멤버 프로필 URL update
-    res.json(imgFile);
-})
+    console.log('imgFile : ',imgFile);
+    Model.Member.update(
+        { profileUrl: imgFile.key },
+        { where: { idMember: req.params.idMember }}
+    ).then(result => {
+        res.send(200);
+    }).catch(err => {
+        res.send(500);
+    });
+});
+
 
 
 module.exports = router;

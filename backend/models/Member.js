@@ -5,7 +5,7 @@
  * @returns {*}
  */
 module.exports = (sequelize, DataTypes) => {
-    const Member = sequelize.define('member', {
+    const Member = sequelize.define('Member', {
         seqMember: {
             field: 'seq_member',
             type: DataTypes.INTEGER(8),
