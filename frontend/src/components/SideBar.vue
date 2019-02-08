@@ -1,82 +1,74 @@
 <template>
-  <v-layout>
-    <v-container>
+  <v-navigation-drawer v-model="drawer" absolute temporary right width="282">
+    <v-list class="pb-4" id="sidebar-top" two-line>
+      <v-btn @click.stop="drawer = !drawer" icon>
+        <v-icon>close</v-icon>
+      </v-btn>
+
+      <v-list-tile v-if="!user">
+        <v-list-tile-content>
+          <v-list-tile-title>로그인/회원가입</v-list-tile-title>
+          <v-list-tile-sub-title>더 놀라운 스타그램을 만나보세요!</v-list-tile-sub-title>
+        </v-list-tile-content>
+        <v-list-tile-action>
+          <v-icon @click="$router.push('/login')">keyboard_arrow_right</v-icon>
+        </v-list-tile-action>
+      </v-list-tile>
+
+      <v-list-tile v-else avatar>
+        <v-list-tile-avatar>
+          <img :src="user.profile">
+        </v-list-tile-avatar>
+        <v-list-tile-content>
+          <v-list-tile-title>{{user.name}}</v-list-tile-title>
+        </v-list-tile-content>
+        <v-list-tile-action>
+          <v-icon @click="$router.push('/profile')">keyboard_arrow_right</v-icon>
+        </v-list-tile-action>
+      </v-list-tile>
+
+      <v-divider></v-divider>
+    </v-list>
+
+    <v-list
+      v-for="category in categories"
+      :key="category.header"
+      class="pb-4"
+      id="sidebar-middle"
+      subheader
+    >
+      <v-subheader v-if="user || category.required === ''">{{ category.header }}</v-subheader>
+
+      <div v-if="user || category.required === ''" wrap>
+        <v-list-tile v-for="item in category.items" :key="item.title">
+          <v-list-tile-content v-if="user && category.header === '포인트관리'">
+            <v-list-tile-title>{{numberWithCommas(user.point)}}</v-list-tile-title>
+          </v-list-tile-content>
+          <v-list-tile-content v-else-if="user || item.required === ''">
+            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+          </v-list-tile-content>
+          <v-list-tile-action v-if="user || item.required==''">
+            <v-icon @click="$router.push(item.link)">keyboard_arrow_right</v-icon>
+          </v-list-tile-action>
+        </v-list-tile>
+      </div>
+    </v-list>
+
+    <v-container v-if="!user" id="sidebar-bottom">
       <v-layout justify-center>
-        <v-btn color="pink" dark @click.stop="drawer = !drawer">메뉴</v-btn>
+        <v-btn block color="#7d51ff" dark depressed to="/login">
+          <span>인플루언서 로그인/회원가입</span>
+        </v-btn>
       </v-layout>
     </v-container>
-
-    <v-navigation-drawer v-model="drawer" absolute temporary right width="282">
-      <v-list class="pb-4" id="sidebar-top" two-line>
-        <v-btn @click.stop="drawer = !drawer" icon>
-          <v-icon>close</v-icon>
-        </v-btn>
-
-        <v-list-tile v-if="!user">
-          <v-list-tile-content>
-            <v-list-tile-title>로그인/회원가입</v-list-tile-title>
-            <v-list-tile-sub-title>더 놀라운 스타그램을 만나보세요!</v-list-tile-sub-title>
-          </v-list-tile-content>
-          <v-list-tile-action>
-            <v-icon @click="$router.push('/login')">keyboard_arrow_right</v-icon>
-          </v-list-tile-action>
-        </v-list-tile>
-
-        <v-list-tile v-else avatar>
-          <v-list-tile-avatar>
-            <img :src="user.profile">
-          </v-list-tile-avatar>
-          <v-list-tile-content>
-            <v-list-tile-title>{{user.name}}</v-list-tile-title>
-          </v-list-tile-content>
-          <v-list-tile-action>
-            <v-icon @click="$router.push('/profile')">keyboard_arrow_right</v-icon>
-          </v-list-tile-action>
-        </v-list-tile>
-
-        <v-divider></v-divider>
-      </v-list>
-
-      <v-list
-        v-for="category in categories"
-        :key="category.header"
-        class="pb-4"
-        id="sidebar-middle"
-        subheader
-      >
-        <v-subheader v-if="user || category.required === ''">{{ category.header }}</v-subheader>
-
-        <div v-if="user || category.required === ''" wrap>
-          <v-list-tile v-for="item in category.items" :key="item.title">
-            <v-list-tile-content v-if="user && category.header === '포인트관리'">
-              <v-list-tile-title>{{numberWithCommas(user.point)}}</v-list-tile-title>
-            </v-list-tile-content>
-            <v-list-tile-content v-else-if="user || item.required === ''">
-              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-            </v-list-tile-content>
-            <v-list-tile-action v-if="user || item.required==''">
-              <v-icon @click="$router.push(item.link)">keyboard_arrow_right</v-icon>
-            </v-list-tile-action>
-          </v-list-tile>
-        </div>
-      </v-list>
-
-      <v-container v-if="!user" id="sidebar-bottom">
-        <v-layout justify-center>
-          <v-btn block color="#7d51ff" dark depressed to="/login">
-            <span>인플루언서 로그인/회원가입</span>
-          </v-btn>
-        </v-layout>
-      </v-container>
-    </v-navigation-drawer>
-  </v-layout>
+  </v-navigation-drawer>
 </template>
 
 <script>
 export default {
+  props: ['drawer'],
   data() {
     return {
-      drawer: null,
       user: {
         profile: 'test',
         name: 'test',
