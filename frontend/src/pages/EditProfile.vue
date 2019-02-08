@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="pa-0 text-xs-center">
-    <tool-bar :title="menu.title"></tool-bar>
+    <tool-bar :title="menu.title" color="white"></tool-bar>
 
     <v-layout wrap row>
       <v-flex class="py-2" xs12 sm6>
