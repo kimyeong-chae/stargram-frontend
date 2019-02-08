@@ -5,6 +5,7 @@ import EditProfile from '../pages/EditProfile';
 import FindingPassword from '../pages/FindingPassword';
 import LoginEmail from '../pages/LoginEmail';
 import LoginSocial from '../pages/LoginSocial';
+import Main from '../pages/Main';
 import Notice from '../pages/Notice';
 import ProfileCoin from '../pages/ProfileCoin';
 import Registration from '../pages/Registration';
@@ -16,6 +17,7 @@ export default new Router({
     {
       path: '/',
       name: 'index',
+      component: Main,
     },
     {
       path: '/edit-profile',
