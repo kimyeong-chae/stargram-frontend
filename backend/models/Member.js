@@ -5,7 +5,7 @@
  * @returns {*}
  */
 module.exports = (sequelize, DataTypes) => {
-    const Member = sequelize.define('member', {
+    const Member = sequelize.define('Member', {
         seqMember: {
             field: 'seq_member',
             type: DataTypes.INTEGER(8),
@@ -45,8 +45,11 @@ module.exports = (sequelize, DataTypes) => {
             field: 'dt_reg',
             type: DataTypes.DATE,
             defaultValue: DataTypes.NOW
+        },
+        nmJoinClass: {
+            field: 'nm_join_class',
+            type: DataTypes.STRING(30)
         }
-
     }, {
         tableName: `member`
     });

@@ -5,7 +5,7 @@
  * @returns {*}
  */
 module.exports = (sequelize, DataTypes) => {
-    const HeartHist = sequelize.define('heart_hist', {
+    const HeartHist = sequelize.define('HeartHist', {
         seqHeartHist: {
             field: 'seq_heart_hist',
             type: DataTypes.INTEGER(8),
