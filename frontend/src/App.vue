@@ -1,9 +1,7 @@
 <template>
   <v-app class="white">
     <side-bar/>
-    <v-content>
-      <router-view></router-view>
-    </v-content>
+    <router-view></router-view>
   </v-app>
 </template>
 
@@ -19,11 +17,11 @@ export default {
 </script>
 
 <style>
-
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans");
 @import url("https://fonts.googleapis.com/css?family=Noto+Sans+KR");
 @import url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons");
 
 #app {
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: "Noto Sans", "Noto Sans KR", sans-serif;
 }
 </style>
