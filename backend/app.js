@@ -3,9 +3,11 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const passport = require('passport');
 
 const index = require('./routes/index');
 const member = require('./routes/member');
+const login = require('./routes/login');
 const s3 = require('./routes/s3');
 
 const app = express();
@@ -16,7 +18,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('./config/passport-config');
+
 app.use('/', index);
+app.use('/', login);
 app.use('/', member);
 app.use('/', s3);
 
