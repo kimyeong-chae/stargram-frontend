@@ -44,7 +44,9 @@
                 <v-layout class="main-menu-point" row wrap>
                   <v-flex class="py-0" grow>
                     <div class="main-menu-rewards-title">My Rewards Points</div>
-                    <span class="main-menu-point-title-1">{{ user.mission.point | numberWithComma }}</span>
+                    <span class="main-menu-point-title-1">
+                      {{ user.mission.point | numberWithComma }}
+                    </span>
                     <span class="main-menu-point-title-2">points</span>
                   </v-flex>
                   <v-flex class="pa-0" align-self-end shrink>
@@ -193,6 +195,8 @@ export default {
   color: #979797;
 }
 .main-header-title-3 {
+  /*text-align: center;*/
+  /*width: 80%;*/
   font-size: 29px;
   font-weight: 600;
   line-height: 1.05;

@@ -20,12 +20,12 @@ export default new Router({
       component: Main,
     },
     {
-      path: '/edit-profile',
+      path: '/member/:idMember/profile/edit',
       name: 'EditProfile',
       component: EditProfile,
     },
     {
-      path: '/finding-password',
+      path: '/forgot-password',
       name: 'FindingPassword',
       component: FindingPassword,
     },
@@ -35,7 +35,7 @@ export default new Router({
       component: LoginEmail,
     },
     {
-      path: '/login/social',
+      path: '/login',
       name: 'LoginSocial',
       component: LoginSocial,
     },
@@ -45,14 +45,14 @@ export default new Router({
       component: Notice,
     },
     {
-      path: '/registration',
-      name: 'registration',
+      path: '/join',
+      name: 'join',
       component: Registration,
     },
     {
-      path: '/profile/coin',
+      path: '/member/:idMember/coin',
       name: 'ProfileCoin',
-      component: ProfileCoin,
+      component: ProfileCoin, //CoinHistory
     },
   ],
 });
