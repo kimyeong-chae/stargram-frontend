@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-model="drawer" absolute temporary right width="282">
+  <v-navigation-drawer v-model="drawer" temporary fixed right width="282">
     <v-list class="pb-4" id="sidebar-top" two-line>
       <v-btn @click.stop="drawer = !drawer" icon>
         <v-icon>close</v-icon>
