@@ -16,7 +16,7 @@
       </v-flex>
 
       <v-flex class="social-buttons">
-        <div wrap>
+        <div>
           <v-btn color="#4872ba" depressed dark round>
             <v-layout row wrap>
               <v-flex xs3>
@@ -28,7 +28,7 @@
             </v-layout>
           </v-btn>
         </div>
-        <div wrap>
+        <div>
           <v-btn color="#f45c4c" depressed dark round>
             <v-layout row wrap>
               <v-flex xs3>
@@ -40,7 +40,7 @@
             </v-layout>
           </v-btn>
         </div>
-        <div wrap>
+        <div>
           <v-btn color="#50abf1" depressed dark round>
             <v-layout row wrap>
               <v-flex xs3>
