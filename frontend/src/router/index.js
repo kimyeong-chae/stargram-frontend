@@ -10,6 +10,7 @@ import Main from '../pages/Main';
 import Notice from '../pages/Notice';
 import CoinHistory from '../pages/CoinHistory';
 import Registration from '../pages/Registration';
+import Settings from '../pages/Settings';
 
 Vue.use(Router);
 
@@ -59,6 +60,11 @@ export default new Router({
       path: '/member/:idMember/coin',
       name: 'CoinHistory',
       component: CoinHistory,
+    },
+    {
+      path: '/settings',
+      name: 'Settings',
+      component: Settings,
     },
   ],
 });
