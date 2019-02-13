@@ -9,9 +9,13 @@ import axios from 'axios';
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 import VeeValidate from 'vee-validate';
-import ko from 'vee-validate/dist/locale/ko';
+import veeKo from 'vee-validate/dist/locale/ko';
+import veeEn from 'vee-validate/dist/locale/en';
+import VueI18n from 'vue-i18n';
 import App from './App';
 import router from './router';
+import messages from './lang';
+
 
 Vue.prototype.$http = axios;
 Vue.config.productionTip = false;
@@ -21,15 +25,26 @@ Vue.use(Vuetify);
 const config = {
   locale: 'ko',
   dictionary: {
-    ko,
+    ko: veeKo,
+    en: veeEn,
   },
 };
 
 Vue.use(VeeValidate, config);
 
+
+Vue.use(VueI18n);
+
+const i18n = new VueI18n({
+  locale: 'ko',
+  messages,
+});
+
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  i18n,
   router,
   components: { App },
   template: '<App/>',

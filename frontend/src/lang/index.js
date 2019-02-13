@@ -1,7 +1,9 @@
 import en from './en.json';
 import ko from './ko.json';
 
-module.exports = {
+const massages = {
   en,
   ko,
-}
+};
+
+export default massages;
