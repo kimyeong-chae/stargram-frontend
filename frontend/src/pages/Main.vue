@@ -44,9 +44,7 @@
                 <v-layout class="main-menu-point" row wrap>
                   <v-flex class="py-0" grow>
                     <div class="main-menu-rewards-title">My Rewards Points</div>
-                    <span class="main-menu-point-title-1">
-                      {{ user.mission.point | numberWithComma }}
-                    </span>
+                    <span class="main-menu-point-title-1">{{ user.mission.point | numberWithComma }}</span>
                     <span class="main-menu-point-title-2">points</span>
                   </v-flex>
                   <v-flex class="pa-0" align-self-end shrink>
@@ -91,7 +89,7 @@
               </v-card-text>
 
               <v-card-actions class="pt-0">
-                <v-btn color="#f76592" block dark>
+                <v-btn color="#f76592" block dark round>
                   <v-icon>mdi-cards-heart</v-icon>
                 </v-btn>
               </v-card-actions>
@@ -273,5 +271,8 @@ export default {
 .v-bottom-nav img {
   width: 20px;
   height: 20px;
+}
+.v-btn--round {
+  border-radius: 19px;
 }
 </style>

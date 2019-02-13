@@ -1,14 +1,16 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
+import ChargeCoin from '../pages/ChargeCoin';
 import EditProfile from '../pages/EditProfile';
 import FindingPassword from '../pages/FindingPassword';
 import LoginEmail from '../pages/LoginEmail';
 import LoginSocial from '../pages/LoginSocial';
 import Main from '../pages/Main';
 import Notice from '../pages/Notice';
-import ProfileCoin from '../pages/ProfileCoin';
+import CoinHistory from '../pages/CoinHistory';
 import Registration from '../pages/Registration';
+import Settings from '../pages/Settings';
 
 Vue.use(Router);
 
@@ -18,6 +20,11 @@ export default new Router({
       path: '/',
       name: 'index',
       component: Main,
+    },
+    {
+      path: '/charge-coin',
+      name: 'ChargeCoin',
+      component: ChargeCoin,
     },
     {
       path: '/member/:idMember/profile/edit',
@@ -51,8 +58,13 @@ export default new Router({
     },
     {
       path: '/member/:idMember/coin',
-      name: 'ProfileCoin',
-      component: ProfileCoin, //CoinHistory
+      name: 'CoinHistory',
+      component: CoinHistory,
+    },
+    {
+      path: '/settings',
+      name: 'Settings',
+      component: Settings,
     },
   ],
 });
