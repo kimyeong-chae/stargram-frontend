@@ -22,7 +22,7 @@ export default new Router({
       component: Main,
     },
     {
-      path: '/charge-coin',
+      path: '/member/:idMember/coin/charge',
       name: 'ChargeCoin',
       component: ChargeCoin,
     },
