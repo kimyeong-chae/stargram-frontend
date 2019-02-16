@@ -6,8 +6,8 @@
  */
 module.exports = (sequelize, DataTypes) => {
     const Sponsor = sequelize.define('Sponsor', {
-        seqHeartHist: {
-            field: 'seq_refund_request',
+        seqSponsor: {
+            field: 'seq_sponsor',
             type: DataTypes.INTEGER(8),
             autoIncrement: true,
             primaryKey: true

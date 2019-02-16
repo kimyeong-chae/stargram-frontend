@@ -24,9 +24,9 @@ app.use(passport.session());
 require('./config/passport-config');
 
 app.use('/', index);
-app.use('/', login);
-app.use('/', member);
-app.use('/', s3);
+app.use('/api', login);
+app.use('/api', member);
+app.use('/api', s3);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

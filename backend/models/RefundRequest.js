@@ -6,7 +6,7 @@
  */
 module.exports = (sequelize, DataTypes) => {
     const RefundRequest = sequelize.define('RefundRequest', {
-        seqHeartHist: {
+        seqRefundRequest: {
             field: 'seq_refund_request',
             type: DataTypes.INTEGER(8),
             autoIncrement: true,

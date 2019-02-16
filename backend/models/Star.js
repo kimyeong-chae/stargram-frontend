@@ -6,7 +6,7 @@
  */
 module.exports = (sequelize, DataTypes) => {
     const Star = sequelize.define('Star', {
-        seqHeartHist: {
+        seqStar: {
             field: 'seq_star',
             type: DataTypes.INTEGER(8),
             autoIncrement: true,

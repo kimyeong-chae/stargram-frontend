@@ -6,7 +6,7 @@
  */
 module.exports = (sequelize, DataTypes) => {
     const ChargeHist = sequelize.define('ChargeHist', {
-        seqHeartHist: {
+        seqChargeHist: {
             field: 'seq_charge_hist',
             type: DataTypes.INTEGER(8),
             autoIncrement: true,
