@@ -23,5 +23,8 @@ export default {
 
 #app {
   font-family: "Noto Sans", "Noto Sans KR", sans-serif;
+  margin-left: 20%;
+  margin-right: 20%;
 }
+
 </style>
