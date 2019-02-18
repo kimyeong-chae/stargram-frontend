@@ -1,5 +1,5 @@
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const GoogleStrategy = require('passport-google-authcode').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const InstagramStrategy = require('passport-instagram').Strategy;
 const Model = require('../models');
@@ -15,7 +15,6 @@ passport.deserializeUser(function(user, done) {
 passport.use(new GoogleStrategy({
         clientID: '1086753375076-1ea7pch4mdb552069gqj20pm9k5fc4l8.apps.googleusercontent.com',
         clientSecret: 'ci0P5lKCTKwtZU7CSyZklOPj',
-        callbackURL: "/login/callback/google"
     },
     (accessToken, refreshToken, profile, done) => {
         console.log("ACCESS:", accessToken);
