@@ -3,7 +3,14 @@
     "username": "stargram_test",
     "password": "stargram0112",
     "database": "stargram_test",
-    "host": "54.180.157.233",
+    "host": "13.209.165.105",
+    "dialect": "mysql"
+  },
+  "production" : {
+    "username": "stargram_test",
+    "password": "stargram0112",
+    "database": "stargram_test",
+    "host": "127.0.0.1",
     "dialect": "mysql"
   }
 }

@@ -1,5 +1,5 @@
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-authcode').Strategy;
+const GoogleAuthCodeStrategy = require('passport-google-authcode2').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const InstagramStrategy = require('passport-instagram').Strategy;
 const Model = require('../models');
@@ -12,7 +12,7 @@ passport.deserializeUser(function(user, done) {
     done(null, user);
 });
 
-passport.use(new GoogleStrategy({
+passport.use(new GoogleAuthCodeStrategy({
         clientID: '1086753375076-1ea7pch4mdb552069gqj20pm9k5fc4l8.apps.googleusercontent.com',
         clientSecret: 'ci0P5lKCTKwtZU7CSyZklOPj',
     },

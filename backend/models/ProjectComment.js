@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(50),
         },
     }, {
-        tableName: `project`
+        tableName: `project_comment`
     });
 
     ProjectComment.associate = function(models) {

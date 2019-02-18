@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(150),
         },
     }, {
-        tableName: `project`
+        tableName: `project_result`
     });
 
     ProjectResult.associate = function(models) {
