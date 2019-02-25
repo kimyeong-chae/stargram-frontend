@@ -15,6 +15,7 @@ import Settings from '../pages/Settings';
 Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -35,11 +36,6 @@ export default new Router({
       path: '/forgot-password',
       name: 'FindingPassword',
       component: FindingPassword,
-    },
-    {
-      path: '/login/email',
-      name: 'LoginEmail',
-      component: LoginEmail,
     },
     {
       path: '/login',
@@ -66,5 +62,11 @@ export default new Router({
       name: 'Settings',
       component: Settings,
     },
+    {
+      path: '/auth/:provider',
+      component: {
+        template: '<div class="auth-component"></div>'
+      }
+    }
   ],
 });

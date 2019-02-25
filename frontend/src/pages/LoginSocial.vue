@@ -14,9 +14,8 @@
           </v-flex>
         </v-layout>
       </v-flex>
-
       <v-flex class="social-buttons">
-        <div>
+        <div @click="authenticate('facebook');">
           <v-btn color="#4872ba" depressed dark round>
             <v-layout row wrap>
               <v-flex xs3>
@@ -28,7 +27,7 @@
             </v-layout>
           </v-btn>
         </div>
-        <div>
+        <div @click="authenticate('google');">
           <v-btn color="#f45c4c" depressed dark round>
             <v-layout row wrap>
               <v-flex xs3>
@@ -40,14 +39,14 @@
             </v-layout>
           </v-btn>
         </div>
-        <div>
+        <div @click="authenticate('instagram');">
           <v-btn color="#50abf1" depressed dark round>
             <v-layout row wrap>
               <v-flex xs3>
                 <v-icon>fab fa-twitter</v-icon>
               </v-flex>
               <v-flex xs7>
-                <span>트위터로 쉬운시작</span>
+                <span>인스타그램으로 쉬운시작</span>
               </v-flex>
             </v-layout>
           </v-btn>
@@ -75,7 +74,65 @@ export default {
   data() {
     return {
       title: '회원가입',
+      response: null,
     };
+  },
+  methods: {
+    authenticate(provider) {
+
+        this.response = null;
+
+        let this_ = this;
+
+        this.$auth.authenticate(provider).then((authResponse) => {
+          return new Promise((resolve, reject) => {
+            console.log(provider + ' authResponse :', authResponse);
+            switch (provider) {
+              case 'facebook':
+                this_.axios.get('https://graph.facebook.com/me', {
+                  params: {access_token: this_.$auth.getToken()}
+                }).then((response) => {
+                  console.log('facebook response :', response);
+                  return resolve(response);
+                }).catch((err) => {
+                  return reject(err);
+                });
+                break;
+              case 'google':
+                this_.axios.get('https://www.googleapis.com/plus/v1/people/me').then((response) => {
+                  console.log('google response :', response);
+                  response.data['name'] = response.data.displayName;
+                  return resolve(response);
+                }).catch((err) => {
+                  return reject(err);
+                });
+                break;
+              case 'instagram':
+                console.log('instagram response :', authResponse);
+                authResponse.data['name'] = authResponse.data.user.full_name;
+                authResponse.data['id'] = authResponse.data.user.id;
+                return resolve(authResponse);
+                break;
+              default:
+                this_.response = null;
+            }
+
+          });
+        }).then((response) => {
+          if (response) {
+            response.data['provider'] = provider;
+            this.axios.post('http://localhost:8080/api/auth/login', response.data).then((user) => {
+              console.log('login user : ',user);
+
+            });
+          }
+        }).catch((err) => {
+          console.log(err);
+          alert('Login Failed!!!');
+        });
+
+
+    },
   },
 };
 </script>
@@ -85,6 +142,7 @@ export default {
   height: 341.5px;
   background-color: #adadad;
   color: #ffffff;
+  border-radius: 0 0 50px 50px;
 }
 .social-content-title {
   font-size: 26.3px;

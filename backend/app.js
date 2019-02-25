@@ -4,20 +4,21 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const passport = require('passport');
-
+const bodyParser = require('body-parser');
 const index = require('./routes/index');
 const member = require('./routes/member');
 const login = require('./routes/login');
 const s3 = require('./routes/s3');
-
+const cors = require('cors');
 const app = express();
 
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
