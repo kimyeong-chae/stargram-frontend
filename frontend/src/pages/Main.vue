@@ -25,7 +25,7 @@
       </v-flex>
 
       <v-flex xs12>
-        <v-card class="outter-card" :img="mainImage">
+        <v-card class="outter-card">
           <v-card-text class="pb-2">
             <div class="main-header-title-3 text-xs-center">{{ user.mission.title }}</div>
           </v-card-text>
@@ -116,14 +116,12 @@
 
 <script>
 import complete from '@/assets/images/complete-icon@2x.png';
-import mainImage from '@/assets/images/main-image.jpeg';
 import ToolBar from '../components/ToolBar';
 
 export default {
   data() {
     return {
       complete,
-      mainImage,
       drawer: '',
       user: {
         mission: {
@@ -197,8 +195,6 @@ export default {
   color: #979797;
 }
 .main-header-title-3 {
-  /*text-align: center;*/
-  /*width: 80%;*/
   font-size: 29px;
   font-weight: 600;
   line-height: 1.05;
@@ -211,6 +207,9 @@ export default {
 }
 
 .outter-card {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../assets/images/main-image.jpeg");
+  background-size: 100%;
   height: 264px;
 }
 
