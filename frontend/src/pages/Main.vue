@@ -32,7 +32,9 @@
 
           <v-layout justify-center>
             <v-flex xs7>
-              <div class="main-header-time text-xs-center">{{ user.mission.dueDate }}</div>
+              <div class="main-header-time text-xs-center">
+                <span>{{ user.mission.dueDate }}</span>
+              </div>
             </v-flex>
           </v-layout>
         </v-card>
@@ -213,13 +215,15 @@ export default {
 }
 
 .main-header-time {
-  opacity: 0.7;
   border-radius: 12px;
-  background-color: #9a5af7;
+  background: rgba(154, 90, 247, 0.7);
+}
+.main-header-time > span {
   font-size: 15.3px;
   font-weight: 600;
   color: white;
 }
+
 .main-menu-rewards {
   margin-top: -110px;
 }
