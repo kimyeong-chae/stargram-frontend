@@ -7,6 +7,7 @@ import FindingPassword from '../pages/FindingPassword';
 import LoginEmail from '../pages/LoginEmail';
 import LoginSocial from '../pages/LoginSocial';
 import Main from '../pages/Main';
+import MainProject from '../pages/MainProject';
 import Notice from '../pages/Notice';
 import CoinHistory from '../pages/CoinHistory';
 import Registration from '../pages/Registration';
@@ -15,11 +16,17 @@ import Settings from '../pages/Settings';
 Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
       name: 'index',
       component: Main,
+    },
+    {
+      path: '/project/:idProject',
+      name: 'MainProject',
+      component: MainProject,
     },
     {
       path: '/member/:idMember/coin/charge',
