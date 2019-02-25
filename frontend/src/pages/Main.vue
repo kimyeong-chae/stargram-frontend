@@ -25,7 +25,7 @@
       </v-flex>
 
       <v-flex xs12>
-        <v-card class="outter-card" :img="main_bg">
+        <v-card class="outter-card" :img="mainImage">
           <v-card-text class="pb-2">
             <div class="main-header-title-3 text-xs-center">{{ user.mission.title }}</div>
           </v-card-text>
@@ -114,14 +114,14 @@
 
 <script>
 import complete from '@/assets/images/complete-icon@2x.png';
-import main_bg from '@/assets/images/main-image.jpeg';
+import mainImage from '@/assets/images/main-image.jpeg';
 import ToolBar from '../components/ToolBar';
 
 export default {
   data() {
     return {
       complete,
-      main_bg,
+      mainImage,
       drawer: '',
       user: {
         mission: {
