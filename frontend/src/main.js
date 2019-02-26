@@ -6,19 +6,18 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import Vue from 'vue';
 import 'babel-polyfill';
 import axios from 'axios';
-import VueAxios from 'vue-axios';
 import Vuetify from 'vuetify';
+import VueAxios from 'vue-axios';
 import 'vuetify/dist/vuetify.min.css';
 import VeeValidate from 'vee-validate';
 import veeKo from 'vee-validate/dist/locale/ko';
 import veeEn from 'vee-validate/dist/locale/en';
 import VueI18n from 'vue-i18n';
+import VueAuthenticate from 'vue-authenticate';
 import store from './store';
 import App from './App';
 import router from './router';
 import messages from './lang';
-import VueAuthenticate from 'vue-authenticate';
-import store from './store';
 
 Vue.config.productionTip = false;
 
@@ -59,7 +58,7 @@ Vue.use(VueAuthenticate, {
       redirectUri: 'http://localhost:8080/auth/google', // Your client app URL
     },
   },
-})
+});
 
 
 /* eslint-disable no-new */
@@ -68,7 +67,6 @@ new Vue({
   el: '#app',
   i18n,
   router,
-  store,
   components: { App },
   template: '<App/>',
 });
