@@ -12,6 +12,7 @@ import VeeValidate from 'vee-validate';
 import veeKo from 'vee-validate/dist/locale/ko';
 import veeEn from 'vee-validate/dist/locale/en';
 import VueI18n from 'vue-i18n';
+import store from './store';
 import App from './App';
 import router from './router';
 import messages from './lang';
@@ -43,6 +44,7 @@ const i18n = new VueI18n({
 
 /* eslint-disable no-new */
 new Vue({
+  store,
   el: '#app',
   i18n,
   router,
