@@ -16,12 +16,13 @@ import VueI18n from 'vue-i18n';
 import App from './App';
 import router from './router';
 import messages from './lang';
-import GAuth from 'vue-google-oauth2';
 import VueAuthenticate from 'vue-authenticate';
+import store from './store';
 
 Vue.config.productionTip = false;
 
 Vue.use(VueAxios, axios);
+
 Vue.use(Vuetify);
 const config = {
   locale: 'ko',
@@ -40,13 +41,6 @@ const i18n = new VueI18n({
   locale: 'ko',
   messages,
 });
-
-// const gauthOption = {
-//   clientId: '1086753375076-1ea7pch4mdb552069gqj20pm9k5fc4l8.apps.googleusercontent.com',
-//   scope: 'profile email',
-// };
-// Vue.use(GAuth, gauthOption);
-
 
 Vue.use(VueAuthenticate, {
   baseUrl: 'http://localhost:8080/api', // Your API domain
@@ -72,6 +66,7 @@ new Vue({
   el: '#app',
   i18n,
   router,
+  store,
   components: { App },
   template: '<App/>',
 });

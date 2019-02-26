@@ -92,7 +92,6 @@ export default {
                 this_.axios.get('https://graph.facebook.com/me', {
                   params: {access_token: this_.$auth.getToken()}
                 }).then((response) => {
-                  console.log('facebook response :', response);
                   return resolve(response);
                 }).catch((err) => {
                   return reject(err);
@@ -101,7 +100,6 @@ export default {
               case 'google':
                 this_.axios.get('https://www.googleapis.com/plus/v1/people/me').then((response) => {
                   console.log('google response :', response);
-                  response.data['name'] = response.data.displayName;
                   return resolve(response);
                 }).catch((err) => {
                   return reject(err);
@@ -109,8 +107,6 @@ export default {
                 break;
               case 'instagram':
                 console.log('instagram response :', authResponse);
-                authResponse.data['name'] = authResponse.data.user.full_name;
-                authResponse.data['id'] = authResponse.data.user.id;
                 return resolve(authResponse);
                 break;
               default:

@@ -21,22 +21,6 @@ const upload = multer({
     })
 })
 
-
-/**
- * 회원 등록
- */
-router.post('/member', (req, res ,next) => {
-    Model.Member.create({
-        idMember: req.body.idMember,
-    }).then(member => {
-        res.json(member);
-    }).catch(err => {
-        res.send(500);
-    });
-
-
-});
-
 /**
  * 회원 조회
  */
@@ -55,7 +39,7 @@ router.get('/member/:idMember', (req, res ,next) => {
 /**
  * 회원 프로필 등록 및 수정
  */
-router.post('/member/:idMember/profile', upload.single("imgFile"), (req, res, next) => {
+router.put('/member/:idMember/profile', upload.single("imgFile"), (req, res, next) => {
     let imgFile = req.file;
     console.log('imgFile : ',imgFile);
     Model.Member.update(

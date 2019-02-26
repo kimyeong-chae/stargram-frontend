@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer v-model="drawer" temporary fixed right width="282">
     <v-list class="pb-4" id="sidebar-top" two-line>
-      <v-btn @click.stop="drawer = !drawer" icon>
+      <v-btn @click.stop="toggleDrawer" icon>
         <v-icon>close</v-icon>
       </v-btn>
 
@@ -65,8 +65,9 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex';
+
 export default {
-  props: ['drawer'],
   data() {
     return {
       user: {
@@ -92,11 +93,26 @@ export default {
       ],
     };
   },
+  computed: {
+    drawer: {
+      get: function () {
+        return this.$store.state.drawer;
+      },
+      set: function () {
+        return this.$store.state.drawer;
+      },
+    },
+  },
   methods: {
     numberWithCommas(n) {
       return `${n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} point`;
+
     },
+    ...mapMutations([
+      'toggleDrawer' // this.increment()를 this.$store.commit('increment')에 매핑합니다.
+    ]),
   },
+
 };
 </script>
 
