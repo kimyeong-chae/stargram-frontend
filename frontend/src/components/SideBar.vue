@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer v-model="drawer" temporary fixed right width="282">
     <v-list class="pb-4" id="sidebar-top" two-line>
-      <v-btn @click.stop="drawer = !drawer" icon>
+      <v-btn @click.stop="toggleDrawer()" icon>
         <v-icon>close</v-icon>
       </v-btn>
 
@@ -66,9 +66,9 @@
 
 <script>
 export default {
-  props: ['drawer'],
   data() {
     return {
+      drawer: '',
       user: {
         profile: 'test',
         name: 'test',

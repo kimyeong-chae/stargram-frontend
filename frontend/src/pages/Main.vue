@@ -1,10 +1,6 @@
 <template>
   <v-container fluid class="pa-0 main-container" grid-list-md>
     <tool-bar color="transparent"></tool-bar>
-    <!-- <v-toolbar color="transparent" flat>
-        <v-spacer></v-spacer>
-        <v-toolbar-side-icon dark @click.stop="toggleDrawer()"></v-toolbar-side-icon>
-    </v-toolbar>-->
     <v-layout wrap row>
       <v-flex xs12>
         <v-card class="py-0" color="white">
@@ -111,18 +107,22 @@
         <img :src="complete">
       </v-btn>
     </v-bottom-nav>
+
+    <side-bar/>
   </v-container>
 </template>
 
 <script>
 import complete from '@/assets/images/complete-icon@2x.png';
-import ToolBar from '../components/ToolBar';
 
 export default {
+  components: {
+    ToolBar: () => import('@/components/ToolBar'),
+    SideBar: () => import('@/components/SideBar'),
+  },
   data() {
     return {
       complete,
-      drawer: '',
       user: {
         mission: {
           title: 'Back to Nature Campaing Under The Star',
@@ -133,9 +133,6 @@ export default {
         },
       },
     };
-  },
-  components: {
-    ToolBar,
   },
   computed: {
     progressValue() {
@@ -157,9 +154,6 @@ export default {
         .reverse()
         .join('');
     },
-  },
-  methods: {
-    toggleDrawer() {},
   },
 };
 </script>
