@@ -1,18 +1,12 @@
 <template>
   <v-app class="white">
-    <side-bar/>
     <router-view></router-view>
   </v-app>
 </template>
 
 <script>
-import SideBar from './components/SideBar';
-
 export default {
   name: 'App',
-  components: {
-    SideBar,
-  },
 };
 </script>
 
@@ -23,12 +17,10 @@ export default {
 
 #app {
   font-family: "Noto Sans", "Noto Sans KR", sans-serif;
+
+  /* temporary values */
   max-width: 650px;
   min-width: 300px;
-  display: inline-block;
-}
-
-body {
-  text-align: center;
+  margin: 0px auto;
 }
 </style>
