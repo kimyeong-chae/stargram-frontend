@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-model="drawer" temporary fixed right width="282">
+  <v-navigation-drawer :value="drawer" temporary fixed right width="282">
     <v-list class="pb-4" id="sidebar-top" two-line>
       <v-btn @click.stop="toggleDrawer()" icon>
         <v-icon>close</v-icon>
@@ -42,7 +42,7 @@
       <div v-if="user || category.required === ''" wrap>
         <v-list-tile v-for="item in category.items" :key="item.title">
           <v-list-tile-content v-if="user && category.header === '포인트관리'">
-            <v-list-tile-title>{{numberWithCommas(user.point)}}</v-list-tile-title>
+            <v-list-tile-title>{{user.point | numberWithComma}}</v-list-tile-title>
           </v-list-tile-content>
           <v-list-tile-content v-else-if="user || item.required === ''">
             <v-list-tile-title>{{ item.title }}</v-list-tile-title>
@@ -65,10 +65,11 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
+
 export default {
   data() {
     return {
-      drawer: '',
       user: {
         profile: 'test',
         name: 'test',
@@ -92,11 +93,24 @@ export default {
       ],
     };
   },
-  methods: {
-    numberWithCommas(n) {
-      return `${n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} point`;
+  filters: {
+    numberWithComma(value) {
+      return value
+        .toString()
+        .split('')
+        .reverse()
+        .reduce((acc, digit, i) => {
+          if (i > 0 && i % 3 === 0) acc.push(',');
+          return [...acc, digit];
+        }, [])
+        .reverse()
+        .join('');
     },
   },
+  methods: {
+    ...mapActions(['toggleDrawer']),
+  },
+  computed: mapState(['drawer']),
 };
 </script>
 
