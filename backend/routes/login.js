@@ -1,43 +1,119 @@
 const express = require('express');
-const path = require('path');
 const router = express.Router();
 const passport = require('passport');
+const axios = require('axios');
+const Request = require('request');
+const config = require('../config/config.json');
+
 
 /**
- * google login
+ * 로그인
  */
-router.get('/login/google', passport.authenticate("google", {
-    scope: ["profile", "email"]
-}));
-
-router.get('/login/callback/google', passport.authenticate("google", { failureRedirect: '/' }), (req, res, next) => {
-    res.render('login', { title: 'Google Login Success'})
-});
+router.post('/auth/login', passport.authenticate('local'), (req, res) => {
+    if (req.user)
+        res.send(200, req.user);
+    else
+        res.sendStatus(401);
+})
 
 /**
- * facebook login
+ * social login callback
  */
-router.get('/login/facebook', passport.authenticate("facebook"));
-
-router.get('/login/callback/facebook', passport.authenticate("facebook", { failureRedirect: '/' }), (req, res, next) => {
-    res.render('login', { title: 'Facebook Login Success'})
+router.post('/auth/:provider', function(req, res){
+    switch(req.params.provider) {
+        case 'facebook':
+            facebookAuth(req, res)
+            break
+        case 'google':
+            googleAuth(req, res)
+            break
+        case 'instagram':
+            instagramAuth(req, res)
+            break
+        default:
+            res.sendStatus(400);
+            break;
+    }
 });
 
-/**
- * instagram login
- */
-router.get('/login/instagram', passport.authenticate("instagram"));
+function facebookAuth(req, res) {
+    axios.post('https://graph.facebook.com/v2.4/oauth/access_token', {
+        client_id: config.auth.facebook.clientId,
+        client_secret: config.auth.facebook.clientSecret,
+        grant_type: 'authorization_code',
+        code: req.body.code,
+        redirect_uri: req.body.redirectUri
+    }, { 'Content-Type': 'application/json' }).then((response) => {
+        var responseJson = response.data
+        res.json(responseJson)
+    }).catch((err) => {
+        console.log('err: \n',err.response.headers['www-authenticate']);
+        res.status(500);
+    })
+};
 
-router.get('/login/callback/instagram', passport.authenticate("instagram", { failureRedirect: '/' }), (req, res, next) => {
-    res.render('login', { title: 'Instagram Login Success'})
-});
+function googleAuth(req, res) {
+    Request({
+        method: 'post',
+        url: 'https://accounts.google.com/o/oauth2/token',
+        form: {
+            code: req.body.code,
+            client_id: config.auth.google.clientId,
+            client_secret: config.auth.google.clientSecret,
+            redirect_uri: req.body.redirectUri,
+            grant_type: 'authorization_code'
+        },
+        headers: {
+            'content-type': 'application/x-www-form-urlencoded'
+        }
+    }, function (err, response, body) {
+        try {
+            if (!err && response.statusCode === 200) {
+                var responseJson = JSON.parse(body);
+                res.json(responseJson)
+            } else {
+                res.status(response.statusCode).json(err)
+            }
+        } catch (e) {
+            res.status(500).json(err || e)
+        }
+    })
+};
+
+function instagramAuth(req, res) {
+    Request({
+        method: 'post',
+        url: 'https://api.instagram.com/oauth/access_token',
+        form: {
+            code: req.body.code,
+            client_id: config.auth.instagram.clientId,
+            client_secret: config.auth.instagram.clientSecret,
+            redirect_uri: req.body.redirectUri,
+            grant_type: 'authorization_code'
+        },
+        headers: {
+            'content-type': 'application/x-www-form-urlencoded'
+        }
+    }, function (err, response, body) {
+        try {
+            if (!err && response.statusCode === 200) {
+                var responseJson = JSON.parse(body)
+                res.json(responseJson)
+            } else {
+                res.status(response.statusCode).json(err)
+            }
+        } catch (e) {
+            res.status(500).json(err || e)
+        }
+    })
+}
 
 /**
  * 로그아웃
  */
 router.get('/logout', (req, res) => {
    req.logout();
-   res.send(200);
+   res.sendStatus(200);
 });
 
 module.exports = router;

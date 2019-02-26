@@ -44,11 +44,6 @@ export default new Router({
       component: FindingPassword,
     },
     {
-      path: '/login/email',
-      name: 'LoginEmail',
-      component: LoginEmail,
-    },
-    {
       path: '/login',
       name: 'LoginSocial',
       component: LoginSocial,
@@ -73,5 +68,11 @@ export default new Router({
       name: 'Settings',
       component: Settings,
     },
+    {
+      path: '/auth/:provider',
+      component: {
+        template: '<div class="auth-component"></div>'
+      }
+    }
   ],
 });

@@ -5,7 +5,7 @@
     </v-btn>
     <v-toolbar-title v-if="color !== 'transparent' && title " v-text="title"></v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-toolbar-side-icon v-if="!title || color !== 'transparent'" dark @click.stop="toggleDrawer()"></v-toolbar-side-icon>
+    <v-toolbar-side-icon v-if="!title || color !== 'transparent'" dark @click.stop="toggleDrawer"></v-toolbar-side-icon>
   </v-toolbar>
 </template>
 
