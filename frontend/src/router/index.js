@@ -4,7 +4,6 @@ import Router from 'vue-router';
 import ChargeCoin from '../pages/ChargeCoin';
 import EditProfile from '../pages/EditProfile';
 import FindingPassword from '../pages/FindingPassword';
-import LoginEmail from '../pages/LoginEmail';
 import LoginSocial from '../pages/LoginSocial';
 import Main from '../pages/Main';
 import MainProject from '../pages/MainProject';
@@ -71,8 +70,8 @@ export default new Router({
     {
       path: '/auth/:provider',
       component: {
-        template: '<div class="auth-component"></div>'
-      }
-    }
+        template: '<div class="auth-component"></div>',
+      },
+    },
   ],
 });
