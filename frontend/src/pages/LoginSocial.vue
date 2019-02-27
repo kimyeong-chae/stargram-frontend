@@ -79,55 +79,57 @@ export default {
   },
   methods: {
     authenticate(provider) {
+      this.response = null;
 
-        this.response = null;
+      const this_ = this;
 
-        let this_ = this;
-
-        this.$auth.authenticate(provider).then((authResponse) => {
-          return new Promise((resolve, reject) => {
-            console.log(provider + ' authResponse :', authResponse);
-            switch (provider) {
-              case 'facebook':
-                this_.axios.get('https://graph.facebook.com/me', {
-                  params: {access_token: this_.$auth.getToken()}
-                }).then((response) => {
-                  return resolve(response);
-                }).catch((err) => {
-                  return reject(err);
-                });
-                break;
-              case 'google':
-                this_.axios.get('https://www.googleapis.com/plus/v1/people/me').then((response) => {
-                  console.log('google response :', response);
-                  return resolve(response);
-                }).catch((err) => {
-                  return reject(err);
-                });
-                break;
-              case 'instagram':
-                console.log('instagram response :', authResponse);
-                return resolve(authResponse);
-                break;
-              default:
-                this_.response = null;
-            }
-
-          });
-        }).then((response) => {
+      this.$auth
+        .authenticate(provider)
+        .then(
+          authResponse =>
+            new Promise((resolve, reject) => {
+              console.log(`${provider} authResponse :`, authResponse);
+              switch (provider) {
+                case 'facebook':
+                  this_.axios
+                    .get('https://graph.facebook.com/me', {
+                      params: { access_token: this_.$auth.getToken() },
+                    })
+                    .then(response => resolve(response))
+                    .catch(err => reject(err));
+                  break;
+                case 'google':
+                  this_.axios
+                    .get('https://www.googleapis.com/plus/v1/people/me')
+                    .then((response) => {
+                      console.log('google response :', response);
+                      return resolve(response);
+                    })
+                    .catch(err => reject(err));
+                  break;
+                case 'instagram':
+                  console.log('instagram response :', authResponse);
+                  return resolve(authResponse);
+                  break;
+                default:
+                  this_.response = null;
+              }
+            }),
+        )
+        .then((response) => {
           if (response) {
-            response.data['provider'] = provider;
-            this.axios.post('http://localhost:8080/api/auth/login', response.data).then((user) => {
-              console.log('login user : ',user);
-
-            });
+            response.data.provider = provider;
+            this.axios
+              .post('http://localhost:8080/api/auth/login', response.data)
+              .then((user) => {
+                console.log('login user : ', user);
+              });
           }
-        }).catch((err) => {
+        })
+        .catch((err) => {
           console.log(err);
           alert('Login Failed!!!');
         });
-
-
     },
   },
 };
