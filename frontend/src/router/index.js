@@ -7,6 +7,7 @@ import FindingPassword from '../pages/FindingPassword';
 import LoginSocial from '../pages/LoginSocial';
 import Main from '../pages/Main';
 import MainProject from '../pages/MainProject';
+import MainResult from '../pages/MainResult';
 import Notice from '../pages/Notice';
 import CoinHistory from '../pages/CoinHistory';
 import Registration from '../pages/Registration';
@@ -26,6 +27,11 @@ export default new Router({
       path: '/project/:idProject',
       name: 'MainProject',
       component: MainProject,
+    },
+    {
+      path: '/result/:idProject',
+      name: 'MainResult',
+      component: MainResult,
     },
     {
       path: '/member/:idMember/coin/charge',
