@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    drawer: '',
+    drawer: false,
   },
   mutations: {
     toggleDrawer(state) {
