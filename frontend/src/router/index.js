@@ -1,17 +1,17 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import ChargeCoin from '../pages/ChargeCoin';
-import EditProfile from '../pages/EditProfile';
-import FindingPassword from '../pages/FindingPassword';
-import LoginSocial from '../pages/LoginSocial';
-import Main from '../pages/Main';
-import MainProject from '../pages/MainProject';
-import MainResult from '../pages/MainResult';
-import Notice from '../pages/Notice';
-import CoinHistory from '../pages/CoinHistory';
-import Registration from '../pages/Registration';
-import Settings from '../pages/Settings';
+const ChargeCoin = () => import('../pages/ChargeCoin');
+const EditProfile = () => import('../pages/EditProfile');
+const FindingPassword = () => import('../pages/FindingPassword');
+const LoginSocial = () => import('../pages/LoginSocial');
+const Main = () => import('../pages/Main');
+const MainProject = () => import('../pages/MainProject');
+const MainResult = () => import('../pages/MainResult');
+const Notice = () => import('../pages/Notice');
+const CoinHistory = () => import('../pages/CoinHistory');
+const Registration = () => import('../pages/Registration');
+const Settings = () => import('../pages/Settings');
 
 Vue.use(Router);
 
@@ -20,7 +20,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'index',
+      name: 'home',
       component: Main,
     },
     {
