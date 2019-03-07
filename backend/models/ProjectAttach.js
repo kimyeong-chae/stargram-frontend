@@ -29,7 +29,10 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     ProjectAttach.associate = function(models) {
-
+        ProjectAttach.belongsTo(models.Project,{
+            foreignKey: 'seq_project',
+            constraints: true,
+        });
     };
 
     return ProjectAttach;

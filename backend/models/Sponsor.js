@@ -12,12 +12,18 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement: true,
             primaryKey: true
         },
+        seqMember: {
+            field: 'seq_member',
+            type: DataTypes.INTEGER(8),
+        }
     }, {
         tableName: `sponsor`
     });
 
     Sponsor.associate = function(models) {
-
+        Sponsor.belongsTo(models.Member, {
+            foreignKey: 'seqMember'
+        });
     };
 
     return Sponsor;

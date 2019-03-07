@@ -44,12 +44,27 @@ module.exports = (sequelize, DataTypes) => {
             field: 'status',
             type: DataTypes.STRING(10),
         },
+        resultMessage: {
+            field: 'result_message',
+            type: DataTypes.STRING(300),
+        },
+        resultLink: {
+            field: 'result_link',
+            type: DataTypes.STRING(300),
+        }
     }, {
         tableName: `project`
     });
 
     Project.associate = function(models) {
-
+        Project.hasMany(models.ProjectAttach,{
+            foreignKey: 'seqProject',
+            constraints: true,
+        });
+        Project.hasMany(models.ProjectComment,{
+            foreignKey: 'seqProject',
+            constraints: true,
+        });
     };
 
     return Project;

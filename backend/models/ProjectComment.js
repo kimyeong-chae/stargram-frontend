@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
             field: 'seq_project',
             type: DataTypes.INTEGER(8),
         },
-        comment_content: {
+        commentContent: {
             field: 'comment_content',
             type: DataTypes.STRING(300),
         },
@@ -29,7 +29,9 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     ProjectComment.associate = function(models) {
-
+        ProjectComment.belongsTo(models.Project,{
+            foreignKey: 'seqProject',
+        });
     };
 
     return ProjectComment;

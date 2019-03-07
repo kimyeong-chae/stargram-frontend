@@ -12,6 +12,18 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement: true,
             primaryKey: true
         },
+        seqSponsor: {
+            field: 'seq_sponsor',
+            type: DataTypes.INTEGER(8),
+        },
+        seqStar: {
+            field: 'seq_star',
+            type: DataTypes.INTEGER(8),
+        },
+        heart_sponsor_total: {
+            field: 'heart_sponsor_total',
+            type: DataTypes.INTEGER(8),
+        },
     }, {
         tableName: `star_sponsor`
     });

@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         nickname: {
             field: 'nickname',
-            type: DataTypes.STRING(30)
+            type: DataTypes.STRING(30),
         },
         profileUrl: {
             field: 'profile_url',
@@ -35,20 +35,24 @@ module.exports = (sequelize, DataTypes) => {
         },
         email: {
             field: 'email',
-            type: DataTypes.STRING(50)
+            type: DataTypes.STRING(50),
         },
         status: {
             field: 'status',
-            type: DataTypes.STRING(8)
+            type: DataTypes.STRING(8),
         },
         dtReg: {
             field: 'dt_reg',
             type: DataTypes.DATE,
-            defaultValue: DataTypes.NOW
+            defaultValue: DataTypes.NOW,
         },
         nmJoinClass: {
             field: 'nm_join_class',
-            type: DataTypes.STRING(30)
+            type: DataTypes.STRING(30),
+        },
+        heartBalance: {
+            field: 'heart_balance',
+            type: DataTypes.INTEGER(12),
         }
     }, {
         tableName: `member`
