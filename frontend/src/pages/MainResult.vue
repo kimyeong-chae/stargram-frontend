@@ -63,7 +63,7 @@
 export default {
   components: {
     ToolBar: () => import('@/components/ToolBar'),
-    SideBar: () => import('@/components/SideBar'),
+    SideBar: () => import('@/components/SideBar/SideBar'),
   },
   data() {
     return {
