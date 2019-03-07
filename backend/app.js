@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const index = require('./routes/index');
 const member = require('./routes/member');
 const login = require('./routes/login');
+const project = require('./routes/project');
 const s3 = require('./routes/s3');
 const cors = require('cors');
 const app = express();
@@ -28,6 +29,7 @@ app.use('/', index);
 app.use('/api', login);
 app.use('/api', member);
 app.use('/api', s3);
+app.use('/api', project);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

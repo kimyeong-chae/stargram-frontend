@@ -43,7 +43,10 @@ router.put('/member/:idMember/profile', upload.single("imgFile"), (req, res, nex
     let imgFile = req.file;
     console.log('imgFile : ',imgFile);
     Model.Member.update(
-        { profileUrl: imgFile.key },
+        {
+            profileUrl: imgFile.key,
+            nickname: req.body.nickname
+        },
         { where: { idMember: req.params.idMember }}
     ).then(result => {
         res.send(200);
