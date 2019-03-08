@@ -6,8 +6,8 @@ const EditProfile = () => import('../pages/EditProfile');
 const FindingPassword = () => import('../pages/FindingPassword');
 const LoginSocial = () => import('../pages/LoginSocial');
 const Main = () => import('../pages/Main');
-const MainProject = () => import('../pages/MainProject');
-const MainResult = () => import('../pages/MainResult');
+const MainProject = () => import('../pages/Project');
+const MainResult = () => import('../pages/ProjectResult');
 const Notice = () => import('../pages/Notice');
 const CoinHistory = () => import('../pages/CoinHistory');
 const Registration = () => import('../pages/Registration');
@@ -24,9 +24,10 @@ export default new Router({
       component: Main,
     },
     {
-      path: '/project/:idProject',
+      path: '/project/:seqProject',
       name: 'MainProject',
       component: MainProject,
+      props: true,
     },
     {
       path: '/result/:idProject',

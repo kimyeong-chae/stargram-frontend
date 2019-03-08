@@ -5,11 +5,11 @@
         <tool-bar title="project" color="transparent"></tool-bar>
         <v-layout row wrap justify-center>
           <v-flex class="py-2" xs10 sm10>
-            <div class="project-header-title text-xs-center">{{ user.project.title }}</div>
+            <div class="project-header-title text-xs-center">{{ project.title }}</div>
           </v-flex>
           <v-flex class="py-2" xs5 sm5>
             <div class="project-header-time text-xs-center">
-              <span>{{ user.project.dueDate }}</span>
+              <span>{{ project.dtProjectEnd }}</span>
             </div>
           </v-flex>
         </v-layout>
@@ -26,7 +26,7 @@
 
                 <v-card-text
                   class="project-card--px-1 project-card-text"
-                >A small River Named Duden Flows by their Place</v-card-text>
+                >{{ project.comment }}</v-card-text>
 
                 <v-card-actions class="pt-3">
                   <v-layout>
@@ -54,7 +54,7 @@
 
                 <v-card-text
                   class="project-card--px-1 pt-1 pb-3 project-card-text-2"
-                >{{ user.project.description }}</v-card-text>
+                >{{ project.content }}</v-card-text>
               </v-card>
             </v-flex>
 
@@ -65,8 +65,8 @@
                 </v-card-title>
 
                 <v-card-text class="project-card--px-1 pt-1 project-card-text-3">
-                  <span class="project-card-text-3__1">{{ user.project.point | numberWithComma }}</span>
-                  <span class="project-card-text-3__2">/ {{ user.project.goal | numberWithComma }}</span>
+                  <span class="project-card-text-3__1">{{ project.heart | numberWithComma }}</span>
+                  <span class="project-card-text-3__2">/ {{ project.cntHeartGoal | numberWithComma }}</span>
                   <span class="project-card-text-3__3">points</span>
                 </v-card-text>
 
@@ -163,7 +163,7 @@
 
                 <div
                   class="project-reply-list border-btm"
-                  v-for="(reply, index) in user.project.replies"
+                  v-for="(reply, index) in project.replies"
                   :key="index"
                 >
                   <v-layout row wrap>
@@ -228,7 +228,10 @@
 </template>
 
 <script>
+import { mapState,mapActions } from 'vuex';
+
 export default {
+  props: ['seqProject'],
   components: {
     ToolBar: () => import('../components/ToolBar'),
   },
@@ -238,41 +241,27 @@ export default {
         name: 'Jack Jones',
         profileUrl:
           'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light',
-        project: {
-          title: 'Back to Nature Campaing Under The Star',
-          description:
-            'In the world of business, the law of two-thirds offers criteria for decisions about what will define a product or organization.',
-          dueDate: '2d:14h:35m:34s',
-          point: 1203,
-          goal: 2000,
-          participant: 128,
-          replies: [
-            { name: 'Jack Jones', heart: '' },
-            {
-              name: 'test',
-              heart: [
-                {
-                  name: 'Jack Jones',
-                  profileUrl:
-                    'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light',
-                },
-              ],
-            },
-            { name: 'test2', heart: '' },
-          ],
-        },
       },
+      project: {},
     };
+  },
+  beforeCreate() {
+
+  },
+  created() {
+    this.getProject(this.$route.params.seqProject);
   },
   computed: {
     progressValue() {
       const progressValue =
-        (this.user.project.point / this.user.project.goal) * 100;
+        (this.project.point / this.project.goal) * 100;
       return progressValue;
     },
   },
   filters: {
     numberWithComma(value) {
+      if (!value) return '';
+
       return value
         .toString()
         .split('')
@@ -284,6 +273,16 @@ export default {
         .reverse()
         .join('');
     },
+  },
+  methods: {
+    getProject(seqProject) {
+      this.axios.get(`/api/project/${seqProject}`)
+        .then(result => {
+          this.project = result.data;
+        }).catch(err => {
+          alert(err);
+        });
+    }
   },
 };
 </script>
