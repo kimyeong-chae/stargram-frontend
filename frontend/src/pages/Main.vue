@@ -118,7 +118,7 @@ import complete from '@/assets/images/complete-icon@2x.png';
 export default {
   components: {
     ToolBar: () => import('@/components/ToolBar'),
-    SideBar: () => import('@/components/SideBar'),
+    SideBar: () => import('@/components/SideBar/SideBar'),
   },
   data() {
     return {
