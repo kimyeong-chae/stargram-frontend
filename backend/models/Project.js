@@ -65,6 +65,10 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: 'seqProject',
             constraints: true,
         });
+        Project.hasMany(models.HeartHist,{
+            foreignKey: 'seqProject',
+            constraints: true,
+        });
     };
 
     return Project;

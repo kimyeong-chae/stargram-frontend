@@ -21,9 +21,9 @@ const store = new Vuex.Store({
     toggleDrawer({ commit }) {
       commit('toggleDrawer');
     },
-    async fetchMemberOne({ commit }, memberId) {
+    async fetchMemberOne({ commit }, idMember) {
       try {
-        const response = await FamenceAPI.fetchMemberOne(memberId);
+        const response = await FamenceAPI.fetchMemberOne(idMember);
         commit('fetchMemberOne', response.data);
       } catch (error) {
         // implementation error handling

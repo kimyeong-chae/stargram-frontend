@@ -1,6 +1,18 @@
 {
   "comm": {
     "포인트관리": "My Heart",
-    "고객지원": "Support"
+    "고객지원": "Support",
+    "더보기": "View more"
+  },
+  "project": {
+    "코멘트": "Comment",
+    "소개": "Project Introduction",
+    "모금금액": "Donate Heart",
+    "후원": {
+      "제목": "Sponsor Rank"
+    },
+    "댓글": {
+      "제목": "Comments"
+    }
   }
 }

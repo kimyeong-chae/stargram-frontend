@@ -29,11 +29,6 @@ router.get('/project/:seqProject', (req,res)=> {
         where: {
             seqProject: req.params.seqProject,
         },
-        include: [{
-            model: Model.ProjectAttach,
-        }, {
-            model: Model.ProjectComment,
-        }]
     }).then(project => {
         res.json(project);
     }).catch(err => {
@@ -99,6 +94,35 @@ router.delete('/project/:seqProject', (req,res)=> {
     }).then(result => {
         console.log('project delete result : ',result);
         res.json({});
+    }).catch(err => {
+        res.send(500, err);
+    });
+});
+
+
+/**
+ * 프로젝트 댓글 조회
+ */
+router.get('/project/:seqProject/projectComment', (req,res)=> {
+    let findOption = {
+        where: {
+            seqProject: req.params.seqProject,
+        },
+        order: [
+            ['createdAt']
+        ],
+        limit: req.query.pageSize ? parseInt(req.query.pageSize) : 5,
+    };
+
+
+    if (req.query.before)
+        findOption.before = req.query.before;
+
+    if (req.query.after)
+        findOption.after = req.query.after;
+
+    Model.ProjectComment.paginate(findOption).then(project => {
+        res.json(project);
     }).catch(err => {
         res.send(500, err);
     });

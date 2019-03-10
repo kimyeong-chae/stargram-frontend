@@ -4,7 +4,11 @@
  * @param DataTypes
  * @returns {*}
  */
+
+
 module.exports = (sequelize, DataTypes) => {
+    const withPagination = require('sequelize-cursor-paginate');
+
     const ProjectComment = sequelize.define('ProjectComment', {
         seqProjectComment: {
             field: 'seq_project_comment',
@@ -20,14 +24,14 @@ module.exports = (sequelize, DataTypes) => {
             field: 'comment_content',
             type: DataTypes.STRING(300),
         },
-        idReg: {
-            field: 'id_reg',
-            type: DataTypes.STRING(50),
-        },
         ynLike: {
             field: 'yn_like',
             type: DataTypes.STRING(1),
-        }
+        },
+        createdBy: {
+            field: 'createdBy',
+            type: DataTypes.STRING(50),
+        },
     }, {
         tableName: `project_comment`
     });
@@ -38,5 +42,11 @@ module.exports = (sequelize, DataTypes) => {
         });
     };
 
+    const options = {
+        methodName: 'paginate',
+        primaryKeyField: 'seqProjectComment',
+    };
+
+    withPagination(options)(ProjectComment);
     return ProjectComment;
 };

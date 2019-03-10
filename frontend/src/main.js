@@ -13,6 +13,7 @@ import VeeValidate from 'vee-validate';
 import veeKo from 'vee-validate/dist/locale/ko';
 import veeEn from 'vee-validate/dist/locale/en';
 import VueI18n from 'vue-i18n';
+import VueMoment from 'vue-moment';
 import VueAuthenticate from 'vue-authenticate';
 import store from './store';
 import App from './App';
@@ -34,11 +35,12 @@ const config = {
 
 Vue.use(VeeValidate, config);
 
+Vue.use(VueMoment);
 
 Vue.use(VueI18n);
 
 const i18n = new VueI18n({
-  locale: 'ko',
+  locale: 'en',
   messages,
 });
 

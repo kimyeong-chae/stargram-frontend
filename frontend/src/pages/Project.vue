@@ -7,9 +7,9 @@
           <v-flex class="py-2" xs10 sm10>
             <div class="project-header-title text-xs-center">{{ project.title }}</div>
           </v-flex>
-          <v-flex class="py-2" xs5 sm5>
+          <v-flex class="py-2" xs7 sm5>
             <div class="project-header-time text-xs-center">
-              <span>{{ project.dtProjectEnd }}</span>
+              <span>~ {{ project.dtProjectEnd | moment("YYYY. MM. DD. h:mm:ss") }}</span>
             </div>
           </v-flex>
         </v-layout>
@@ -21,7 +21,7 @@
             <v-flex xs12>
               <v-card flat class="project-comment">
                 <v-card-title class="project-card--px-1">
-                  <span class="project-card-title">인플루언스 코멘트</span>
+                  <span class="project-card-title">{{ $t("project.코멘트")}}</span>
                 </v-card-title>
 
                 <v-card-text
@@ -49,7 +49,7 @@
             <v-flex xs12>
               <v-card flat class="project-intro">
                 <v-card-title class="project-card--px-1">
-                  <span class="project-card-title">프로젝트 소개</span>
+                  <span class="project-card-title">{{ $t("project.소개")}}</span>
                 </v-card-title>
 
                 <v-card-text
@@ -61,7 +61,7 @@
             <v-flex xs12>
               <v-card flat class="project-progress">
                 <v-card-title class="project-card--px-1">
-                  <span class="project-card-title">모금 금액</span>
+                  <span class="project-card-title">{{ $t("project.모금금액") }}</span>
                 </v-card-title>
 
                 <v-card-text class="project-card--px-1 pt-1 project-card-text-3">
@@ -85,7 +85,7 @@
             <v-flex xs12>
               <v-card flat class="project-rank">
                 <div class="project-card--px-1 pb-2 bg-purple">
-                  <div class="project-card-title text-color--white">후원자 순위</div>
+                  <div class="project-card-title text-color--white" >{{ $t("project.후원.제목") }}</div>
 
                   <v-layout class="px-3 pt-3" text-xs-center>
                     <v-flex class="pa-1" align-self-center>
@@ -151,69 +151,12 @@
                   </v-layout>
                 </div>
 
-                <div class="py-3 project-card-readmore" @click.stop="loadMore()">더보기</div>
+                <div class="py-3 project-card-readmore" @click.stop="loadMore()">{{ $t("comm.더보기") }}</div>
               </v-card>
             </v-flex>
 
-            <v-flex xs12>
-              <v-card flat class="project-reply">
-                <v-card-title class="project-card--px-1">
-                  <span class="project-card-title">댓글</span>
-                </v-card-title>
+            <project-comments :seq-project="this.$route.params.seqProject"></project-comments>
 
-                <div
-                  class="project-reply-list border-btm"
-                  v-for="(reply, index) in project.replies"
-                  :key="index"
-                >
-                  <v-layout row wrap>
-                    <v-flex class="py-0" xs12>
-                      <v-layout class="ma-0">
-                        <v-flex class="pa-0" align-self-center shrink>
-                          <v-avatar size="31" color="grey lighten-2">
-                            <img :src="user.profileUrl">
-                          </v-avatar>
-                        </v-flex>
-
-                        <v-flex class="py-1" align-self-center grow>
-                          <div class="project-reply-text__1">username</div>
-                          <div class="project-reply-text__2">2019.01.01</div>
-                        </v-flex>
-
-                        <v-flex align-self-center shrink>
-                          <div v-if="reply.name === user.name" class="project-reply--btn">
-                            <span>owner</span>
-                          </div>
-                          <span v-if="reply.heart" class="project-reply--heart">
-                            <div class="project-img--wrap">
-                              <v-avatar size="28" color="grey lighten-2">
-                                <img :src="user.profileUrl" alt="alt">
-                              </v-avatar>
-                              <span class="project-img--overlap-2">
-                                <img src="../assets/images/heart-icon-bg-2.png">
-                              </span>
-                            </div>
-                          </span>
-                        </v-flex>
-                      </v-layout>
-                    </v-flex>
-
-                    <v-flex class="py-0" xs12>
-                      <v-layout class="ma-0">
-                        <v-flex class="pt-0 project-reply-list-bottom" align-self-center>
-                          <div class="project-reply-text__3">
-                            Years of old players have come to tell us
-                            something, and see what they have.
-                          </div>
-                        </v-flex>
-                      </v-layout>
-                    </v-flex>
-                  </v-layout>
-                </div>
-
-                <div class="py-3 project-card-readmore" @click.stop="loadMore()">더보기</div>
-              </v-card>
-            </v-flex>
           </v-layout>
         </v-container>
       </v-flex>
@@ -229,11 +172,13 @@
 
 <script>
 import { mapState,mapActions } from 'vuex';
+import famenceAPI  from '../api/famenceAPI';
 
 export default {
   props: ['seqProject'],
   components: {
     ToolBar: () => import('../components/ToolBar'),
+    ProjectComments: () => import('@/components/ProjectComments'),
   },
   data() {
     return {
@@ -249,7 +194,7 @@ export default {
 
   },
   created() {
-    this.getProject(this.$route.params.seqProject);
+    this.setProject(this.$route.params.seqProject);
   },
   computed: {
     progressValue() {
@@ -275,13 +220,12 @@ export default {
     },
   },
   methods: {
-    getProject(seqProject) {
-      this.axios.get(`/api/project/${seqProject}`)
-        .then(result => {
-          this.project = result.data;
-        }).catch(err => {
-          alert(err);
-        });
+    setProject(seqProject) {
+      famenceAPI.findOneProject(seqProject).then(result => {
+        this.project = result.data;
+      }).catch(err => {
+        alert(err);
+      });
     }
   },
 };
@@ -387,16 +331,11 @@ export default {
 .text-color--white {
   color: white;
 }
-.project-card-readmore {
-  font-size: 14px;
-  font-weight: normal;
-  color: #9a5af7;
-  cursor: pointer;
-  text-align: center;
-}
+
 .project-avatar > img {
   border: 4px solid #ffffff;
 }
+
 .project-img--wrap {
   position: relative;
 }
@@ -441,45 +380,11 @@ export default {
   font-size: 15px;
   color: #333333;
 }
-.project-reply-list {
-  padding: 10px 0;
-  margin: 0 10px;
-}
-.project-reply--btn {
-  width: 53px;
-  height: 17px;
-  border-radius: 6px;
-  background-color: #a168f8;
-  font-size: 12.3px;
-  font-weight: 500;
-  color: #ffffff;
+.project-card-readmore {
+  font-size: 14px;
+  font-weight: normal;
+  color: #9a5af7;
+  cursor: pointer;
   text-align: center;
-  font-family: NotoSansKR;
-}
-.project-reply-list-bottom {
-  margin-left: 31px;
-}
-.project-reply-text__1 {
-  font-size: 13px;
-  font-weight: 500;
-  color: #333333;
-}
-.project-reply-text__2 {
-  font-size: 11px;
-  font-weight: 500;
-  color: #b0b0b0;
-}
-.project-reply-text__3 {
-  font-family: NotoSansKR;
-  font-size: 12px;
-  line-height: 1.25;
-  color: #444444;
-}
-.project-img--overlap-2 {
-  position: absolute;
-  top: auto;
-  bottom: -6px;
-  left: auto;
-  right: -3px;
 }
 </style>
