@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement: true,
             primaryKey: true
         },
-        seqSponsor: {
-            field: 'seq_sponsor',
+        seqMember: {
+            field: 'seq_member',
             type: DataTypes.INTEGER(8),
         },
         seqStar: {

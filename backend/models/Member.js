@@ -17,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(50),
             unique: true
         },
-        pwMember: {
-            field: 'pw_member',
+        pwPayment: {
+            field: 'pw_payment',
             type: DataTypes.STRING(128),
         },
         name: {
@@ -40,11 +40,6 @@ module.exports = (sequelize, DataTypes) => {
         status: {
             field: 'status',
             type: DataTypes.STRING(8),
-        },
-        dtReg: {
-            field: 'dt_reg',
-            type: DataTypes.DATE,
-            defaultValue: DataTypes.NOW,
         },
         nmJoinClass: {
             field: 'nm_join_class',

@@ -24,6 +24,10 @@ module.exports = (sequelize, DataTypes) => {
             field: 'id_reg',
             type: DataTypes.STRING(50),
         },
+        ynLike: {
+            field: 'yn_like',
+            type: DataTypes.STRING(1),
+        }
     }, {
         tableName: `project_comment`
     });

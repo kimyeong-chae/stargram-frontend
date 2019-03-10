@@ -5,9 +5,9 @@
  * @returns {*}
  */
 module.exports = (sequelize, DataTypes) => {
-    const SponsorHeartHist = sequelize.define('SponsorHeartHist', {
+    const HeartHist = sequelize.define('HeartHist', {
         seqStarSponsor: {
-            field: 'seq_sponsor_heart',
+            field: 'seq_heart_hist',
             type: DataTypes.INTEGER(10),
             autoIncrement: true,
             primaryKey: true
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
             // 20: 후원 대기
             // 30: 후원 확정
             // 90: 후원 취소
-            field: 'cd_sponsor_heart',
+            field: 'cd_heart_hist',
             type: DataTypes.STRING(8),
         },
         heart: {
@@ -37,12 +37,12 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER(8),
         },
     }, {
-        tableName: `sponsor_heart_hist`
+        tableName: `heart_hist`
     });
 
-    SponsorHeartHist.associate = function(models) {
+    HeartHist.associate = function(models) {
 
     };
 
-    return SponsorHeartHist;
+    return HeartHist;
 };
