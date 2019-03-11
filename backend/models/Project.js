@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
             field: 'seq_project',
             type: DataTypes.INTEGER(8),
             autoIncrement: true,
-            primaryKey: true
+            primaryKey: true,
         },
         seqStar: {
             field: 'seq_star',
@@ -51,21 +51,21 @@ module.exports = (sequelize, DataTypes) => {
         resultLink: {
             field: 'result_link',
             type: DataTypes.STRING(300),
-        }
+        },
     }, {
-        tableName: `project`
+        tableName: 'project',
     });
 
     Project.associate = function(models) {
-        Project.hasMany(models.ProjectAttach,{
+        Project.hasMany(models.ProjectAttach, {
             foreignKey: 'seqProject',
             constraints: true,
         });
-        Project.hasMany(models.ProjectComment,{
+        Project.hasMany(models.ProjectComment, {
             foreignKey: 'seqProject',
             constraints: true,
         });
-        Project.hasMany(models.HeartHist,{
+        Project.hasMany(models.HeartHist, {
             foreignKey: 'seqProject',
             constraints: true,
         });
