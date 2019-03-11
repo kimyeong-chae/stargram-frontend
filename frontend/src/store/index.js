@@ -17,10 +17,11 @@ const store = new Vuex.Store({
       localStorage.setItem('member', JSON.stringify(payload));
       state.member = payload;
     },
-    getMember(state, payload) {
-      let member = localStorage.getItem('member');
-      if (member)
+    getMember(state) {
+      const member = localStorage.getItem('member');
+      if (member) {
         state.member = JSON.parse(member);
+      }
     },
     fetchMemberOne(state, payload) {
       state.member = payload;

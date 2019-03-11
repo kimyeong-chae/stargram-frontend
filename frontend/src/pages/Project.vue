@@ -100,8 +100,7 @@
 </template>
 
 <script>
-import { mapState,mapActions } from 'vuex';
-import famenceAPI  from '../api/famenceAPI';
+import famenceAPI from '../api/famenceAPI';
 
 export default {
   props: ['seqProject'],
@@ -151,12 +150,12 @@ export default {
   },
   methods: {
     setProject(seqProject) {
-      famenceAPI.findOneProject(seqProject).then(result => {
+      famenceAPI.findOneProject(seqProject).then((result) => {
         this.project = result.data;
-      }).catch(err => {
+      }).catch((err) => {
         alert(err);
       });
-    }
+    },
   },
 };
 </script>

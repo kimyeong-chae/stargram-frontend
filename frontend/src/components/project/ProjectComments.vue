@@ -2,7 +2,7 @@
   <v-flex xs12>
     <v-card flat class="project-reply">
       <v-card-title class="project-card--px-1">
-        <span class="project-card-title">{{ $t("project.댓글.제목")}}</span>
+        <span class="project-card-title">{{ $t('project.댓글.제목') }}</span>
       </v-card-title>
 
       <div class="project-reply-list border-btm" v-for="(comment, index) in comments" :key="index">
@@ -16,10 +16,10 @@
               </v-flex>
 
               <v-flex class="py-1" align-self-center grow>
-                <div class="project-reply-id">{{comment.createdBy}}</div>
+                <div class="project-reply-id">{{ comment.createdBy }}</div>
                 <div
                   class="project-reply-date"
-                >{{comment.createdAt | moment("YYYY. MM. DD. h:mm:ss")}}</div>
+                >{{ comment.createdAt | moment('YYYY. MM. DD. h:mm:ss') }}</div>
               </v-flex>
 
               <v-flex align-self-center shrink>
@@ -44,7 +44,7 @@
           <v-flex class="py-0" xs12>
             <v-layout class="ma-0">
               <v-flex class="pt-0 project-reply-list-bottom" align-self-center>
-                <div class="project-reply-content">{{comment.commentContent}}</div>
+                <div class="project-reply-content">{{ comment.commentContent }}</div>
               </v-flex>
             </v-layout>
           </v-flex>
@@ -55,13 +55,13 @@
         v-if="this.hasNext"
         class="py-3 project-card-readmore"
         @click.stop="appendComments()"
-      >{{ $t("comm.더보기") }}</div>
+      >{{ $t('comm.더보기') }}</div>
     </v-card>
   </v-flex>
 </template>
 
 <script>
-import famenceAPI from '../../api/famenceAPI';
+import famenceAPI from '@/api/famenceAPI';
 
 export default {
   props: ['seqProject'],
@@ -80,16 +80,15 @@ export default {
     };
   },
   created() {
-    this.setComments();
+    this.getComments();
   },
   methods: {
-    async setComments() {
+    async getComments() {
       const option = {
         seqProject: this.seqProject,
         pageSize: this.pageSize,
       };
       const result = await famenceAPI.findAllProjectComment(option);
-      console.log('result : ', result);
       this.setResult(result, true);
     },
     async appendComments() {
@@ -105,8 +104,11 @@ export default {
       this.hasNext = result.data.cursors.hasNext;
       this.after = result.data.cursors.after;
 
-      if (isInit) this.comments = result.data.results;
-      else this.comments.push(...result.data.results);
+      if (isInit) {
+        this.comments = result.data.results;
+      } else {
+        this.comments.push(...result.data.results);
+      }
     },
   },
 };
