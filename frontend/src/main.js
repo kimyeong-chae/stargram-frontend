@@ -19,9 +19,7 @@ import store from './store';
 import App from './App';
 import router from './router';
 import messages from './lang';
-import VueCookies from 'vue-cookies'
 
-Vue.use(VueCookies)
 Vue.config.productionTip = false;
 
 Vue.use(VueAxios, axios);

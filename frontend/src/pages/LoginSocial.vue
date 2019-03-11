@@ -64,11 +64,10 @@
 </template>
 
 <script>
-import ToolBar from '../components/ToolBar';
 import { mapActions } from 'vuex';
+import ToolBar from '../components/ToolBar';
 
 export default {
-
   name: 'LoginSocial',
   components: {
     ToolBar,
@@ -83,57 +82,52 @@ export default {
     authenticate(provider) {
       this.response = null;
 
-      const this_ = this;
-
       this.$auth
         .authenticate(provider)
         .then(
           authResponse =>
             new Promise((resolve, reject) => {
-              console.log(`${provider} authResponse :`, authResponse);
               switch (provider) {
                 case 'facebook':
-                  this_.axios
+                  this.axios
                     .get('https://graph.facebook.com/me', {
-                      params: { access_token: this_.$auth.getToken() },
+                      params: { access_token: this.$auth.getToken() },
                     })
                     .then(response => resolve(response))
                     .catch(err => reject(err));
                   break;
                 case 'google':
-                  this_.axios
+                  this.axios
                     .get('https://www.googleapis.com/plus/v1/people/me')
                     .then((response) => {
-                      console.log('google response :', response);
-                      response.data.name = response.data.displayName;
+                      const result = response;
+                      result.data.name = result.data.displayName;
                       return resolve(response);
                     })
                     .catch(err => reject(err));
                   break;
                 case 'instagram':
-                  console.log('instagram response :', authResponse);
                   return resolve(authResponse);
-                  break;
                 default:
-                  this_.response = null;
+                  this.response = null;
               }
+              return reject(null);
             }),
-        )
-        .then((response) => {
+        ).then((response) => {
           if (response) {
-            response.data.provider = provider;
+            const result = response;
+            result.data.provider = provider;
+
             this.axios
-              .post('http://localhost:8080/api/auth/login', response.data)
+              .post('http://localhost:8080/api/auth/login', result)
               .then((user) => {
-                console.log('login user : ', user);
                 this.setMember(user.data.user);
                 this.$router.push('/');
               });
           }
         })
         .catch((err) => {
-          console.log(err);
-          alert('Login Failed!!!');
+          alert('Login Failed!!! ', err);
         });
     },
     ...mapActions(['setMember']),
