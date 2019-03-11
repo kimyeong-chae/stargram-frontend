@@ -5,7 +5,7 @@
         <div class="project-card-title text-color--white">{{ $t("project.후원.제목")}}</div>
 
         <v-layout class="px-3 pt-3" text-xs-center>
-          <v-flex class="pa-1" align-self-center>
+          <v-flex v-if="sponsor[1]" class="pa-1" align-self-center>
             <div class="project-img--wrap">
                         <span class="project-img--overlap">
                           <img src="../../assets/images/crown-bg-2.png">
@@ -13,12 +13,12 @@
               <v-avatar class="project-avatar" size="68" color="grey lighten-2">
                 <img :src="user.profileUrl" alt="alt">
               </v-avatar>
-              <span class="project-badge project-badge--overlap bg-silver">500</span>
+              <span class="project-badge project-badge--overlap bg-silver">{{ sponsor[1].heart }}</span>
             </div>
-            <div class="py-1 project-rank-subtitle">username</div>
+            <div class="py-1 project-rank-subtitle">{{ sponsor[1].Member.nickname }}</div>
           </v-flex>
 
-          <v-flex class="pa-1" align-self-center shrink>
+          <v-flex v-if="sponsor[0]" class="pa-1" align-self-center shrink>
             <div class="project-img--wrap">
                         <span class="project-img--overlap">
                           <img src="../../assets/images/crown-bg-1.png">
@@ -26,12 +26,12 @@
               <v-avatar class="project-avatar" size="83" color="grey lighten-2">
                 <img :src="user.profileUrl" alt="alt">
               </v-avatar>
-              <span class="project-badge project-badge--overlap bg-gold">1000</span>
+              <span class="project-badge project-badge--overlap bg-gold">{{ sponsor[0].heart }}</span>
             </div>
-            <div class="py-1 project-rank-subtitle">username</div>
+            <div class="py-1 project-rank-subtitle">{{ sponsor[0].Member.nickname }}</div>
           </v-flex>
 
-          <v-flex class="pa-1" align-self-center>
+          <v-flex v-if="sponsor[2]" class="pa-1" align-self-center>
             <div class="project-img--wrap">
                         <span class="project-img--overlap">
                           <img src="../../assets/images/crown-bg-3.png">
@@ -39,33 +39,35 @@
               <v-avatar class="project-avatar" size="68" color="grey lighten-2">
                 <img :src="user.profileUrl" alt="alt">
               </v-avatar>
-              <span class="project-badge project-badge--overlap bg-bronze">300</span>
+              <span class="project-badge project-badge--overlap bg-bronze">{{ sponsor[2].heart }}</span>
             </div>
-            <div class="py-1 project-rank-subtitle">username</div>
+            <div class="py-1 project-rank-subtitle">{{ sponsor[2].Member.nickname }}</div>
           </v-flex>
         </v-layout>
       </div>
 
       <div class="project-rank-list border-btm" v-for="i in 2" :key="i">
-        <v-layout class="ma-0">
-          <v-flex align-self-center shrink>
-            <span class="project-rank-text__1">{{ i+3 }}</span>
-          </v-flex>
+        <div v-if="sponsor[i+2]">
+          <v-layout class="ma-0">
+            <v-flex align-self-center shrink>
+              <span class="project-rank-text__1">{{ i+3 }}</span>
+            </v-flex>
 
-          <v-flex align-self-center shrink>
-            <v-avatar size="31" color="grey lighten-2">
-              <img :src="user.profileUrl">
-            </v-avatar>
-          </v-flex>
+            <v-flex align-self-center shrink>
+              <v-avatar size="31" color="grey lighten-2">
+                <img :src="user.profileUrl">
+              </v-avatar>
+            </v-flex>
 
-          <v-flex align-self-center grow>
-            <span class="project-rank-text__2">username</span>
-          </v-flex>
+            <v-flex align-self-center grow>
+              <span class="project-rank-text__2">{{ sponsor[i+2].Member.nickname }}</span>
+            </v-flex>
 
-          <v-flex align-self-center shrink>
-            <span class="project-rank-text__3">point</span>
-          </v-flex>
-        </v-layout>
+            <v-flex align-self-center shrink>
+              <span class="project-rank-text__3">{{ sponsor[i+2].heart }}</span>
+            </v-flex>
+          </v-layout>
+        </div>
       </div>
 
       <div class="py-3 project-card-readmore" @click.stop="loadMore()">{{ $t("comm.더보기")}}</div>
@@ -74,17 +76,31 @@
 </template>
 
 <script>
-    export default {
-      name: "ProjectRank",
-      data() {
-        return {
-          user: {
-            profileUrl:
-              'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light',
-          },
+export default {
+  name: 'ProjectRank',
+  props: ['seqProject'],
+  data() {
+    return {
+      user: {
+        profileUrl:
+          'https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light',
+      },
+      sponsor: [],
+    };
+  },
+  created() {
+    this.getProjectSponsor();
+  },
+  methods: {
+    getProjectSponsor() {
+      this.axios.get(`/api/project/${this.seqProject}/heartHist?pageSize=5`).then((result) => {
+        if (result) {
+          this.sponsor = result.data.results;
         }
-      }
-    }
+      });
+    },
+  },
+};
 </script>
 
 <style scoped>

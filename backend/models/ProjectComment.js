@@ -4,7 +4,7 @@
  * @param DataTypes
  * @returns {*}
  */
-const withPagination = require('sequelize-cursor-paginate');
+const withPagination = require('sequelize-cursor-pagination');
 
 module.exports = (sequelize, DataTypes) => {
   const ProjectComment = sequelize.define(

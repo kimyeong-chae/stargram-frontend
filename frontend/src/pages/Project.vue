@@ -65,7 +65,7 @@
                 </v-card-title>
 
                 <v-card-text class="project-card--px-1 pt-1 project-card-text-3">
-                  <span class="project-card-text-3__1">{{ project.heart | numberWithComma }}</span>
+                  <span class="project-card-text-3__1">{{ project.donateHeart | numberWithComma }}</span>
                   <span class="project-card-text-3__2">/ {{ project.cntHeartGoal | numberWithComma }}</span>
                   <span class="project-card-text-3__3">points</span>
                 </v-card-text>
@@ -128,13 +128,14 @@ export default {
   computed: {
     progressValue() {
       const progressValue =
-        (this.project.point / this.project.goal) * 100;
+        (this.project.donateHeart / this.project.cntHeartGoal) * 100;
       return progressValue;
     },
   },
   filters: {
     numberWithComma(value) {
-      if (!value) return '';
+      console.log('numberWithComma : ', value);
+      if (value === null || value === undefined || value === '') return '';
 
       return value
         .toString()

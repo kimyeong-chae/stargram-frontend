@@ -5,7 +5,7 @@ const express = require('express');
 
 const router = express.Router();
 const Model = require('../models');
-
+const sequelize = require('sequelize');
 
 /**
  * 프로젝트 리스트 조회
@@ -30,6 +30,9 @@ router.get('/project/:seqProject', (req, res) => {
     where: {
       seqProject: req.params.seqProject,
     },
+    attributes: Object.keys(Model.Project.attributes).concat([
+      [sequelize.literal(`(SELECT SUM(heart) FROM heart_hist WHERE seq_project = ${req.params.seqProject})`), 'donateHeart'],
+    ]),
   }).then((project) => {
     res.json(project);
   }).catch((err) => {
@@ -134,21 +137,21 @@ router.get('/project/:seqProject/heartHist', (req, res) => {
     where: {
       seqProject: req.params.seqProject,
     },
-    include: [
-      { model: Model.Member },
-    ],
     order: [
-      ['heart', 'DSC'],
+      ['heart', 'DESC'],
+    ],
+    include: [
+      { model: Model.Member, attributes: ['nickname', 'profileUrl'] },
     ],
     // eslint-disable-next-line radix
     limit: req.query.pageSize ? parseInt(req.query.pageSize) : 5,
   };
-
+  console.log(findOption);
   if (req.query.before) { findOption.before = req.query.before; }
   if (req.query.after) { findOption.after = req.query.after; }
 
-  Model.HeartHist.paginate(findOption).then((heartHist) => {
-    res.json(heartHist);
+  Model.HeartHist.paginate(findOption).then((heartHists) => {
+    res.json(heartHists);
   }).catch((err) => {
     res.send(500, err);
   });
