@@ -3,7 +3,6 @@ import Router from 'vue-router';
 
 const ChargeCoin = () => import('../pages/ChargeCoin');
 const EditProfile = () => import('../pages/EditProfile');
-const FindingPassword = () => import('../pages/FindingPassword');
 const LoginSocial = () => import('../pages/LoginSocial');
 const Main = () => import('../pages/Main');
 const MainProject = () => import('../pages/Project');
@@ -43,11 +42,6 @@ export default new Router({
       path: '/member/:idMember/profile/edit',
       name: 'EditProfile',
       component: EditProfile,
-    },
-    {
-      path: '/forgot-password',
-      name: 'FindingPassword',
-      component: FindingPassword,
     },
     {
       path: '/login',
