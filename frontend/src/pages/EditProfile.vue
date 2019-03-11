@@ -1,49 +1,29 @@
 <template>
   <v-container fluid class="pa-0 text-xs-center">
-    <tool-bar :title="menu.title" color="white"></tool-bar>
+    <tool-bar title="프로필 수정" color="white"></tool-bar>
 
-    <v-layout wrap row>
+    <v-layout class="profile-edit__wrap" wrap row>
       <v-flex class="py-2" xs12 sm6>
         <v-avatar extended size="90">
-          <v-img v-if="member.profileUrl === ''" :src="DefaultImagePath"></v-img>
+          <v-img :src="imageUrl || member.profileUrl || defaultImagePath"></v-img>
 
-          <v-img v-else :src="member.profileUrl" dark></v-img>
-
-          <v-bottom-sheet v-model="bottomSheet">
-            <v-btn
-              id="select-picture"
-              fab
-              small
-              color="#745bf5"
-              slot="activator"
-              dark
-              absolute
-              depressed
-            >
-              <v-icon>camera_alt</v-icon>
-            </v-btn>
-
-            <v-list class="bottom-sheet">
-              <v-list-tile>
-                <v-list-tile-content>
-                  <v-list-tile-title>사진 촬영</v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
-
-              <v-divider></v-divider>
-
-              <v-list-tile>
-                <v-list-tile-content>
-                  <v-list-tile-title>앨범</v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
-            </v-list>
-          </v-bottom-sheet>
+          <v-btn
+            class="profile-edit__camera-button"
+            fab
+            small
+            color="#745bf5"
+            dark
+            absolute
+            depressed
+            @click="pickFile"
+          >
+            <v-icon>camera_alt</v-icon>
+          </v-btn>
         </v-avatar>
       </v-flex>
 
-      <v-flex class="py-2" xs12 sm6>
-        <v-form ref="form" @submit.prevent="submit" v-model="valid">
+      <v-flex class="py-2" xs12>
+        <v-form enctype="multipart/form-data" ref="form" @submit.prevent="submit" v-model="valid">
           <v-text-field
             v-model="nickname"
             :rules="nicknameRules"
@@ -54,15 +34,16 @@
             required
           ></v-text-field>
 
-          <v-btn
-            color="#745bf5"
-            :disabled="!valid"
-            :dark="valid"
-            block
-            depressed
-            @click="submit"
-            v-text="selectText"
-          ></v-btn>
+          <input
+            style="display:none"
+            type="file"
+            accept="image/*"
+            capture="camera"
+            ref="image"
+            @change="onFilePicked"
+          >
+
+          <v-btn color="#745bf5" :disabled="!valid" :dark="valid" block depressed @click="submit">수정</v-btn>
         </v-form>
       </v-flex>
     </v-layout>
@@ -70,7 +51,9 @@
 </template>
 
 <script>
-import DefaultImagePath from '@/assets/images/profile-image-default@2x.png';
+import { mapState } from 'vuex';
+import defaultImagePath from '@/assets/images/profile-image-default@2x.png';
+import FamenceAPI from '@/api/famenceAPI';
 import ToolBar from '../components/ToolBar';
 
 export default {
@@ -79,47 +62,81 @@ export default {
   },
   data() {
     return {
-      DefaultImagePath,
+      defaultImagePath,
       valid: false,
-      bottomSheet: false,
       nickname: '',
+      imageUrl: '',
+      imageFile: '',
       nicknameRules: [
         v => !!v || '닉네임을 입력해주세요.',
         v => (v && v.length <= 10) || '10자 이내로 입력해주세요.',
       ],
-      member: {
-        profileUrl: '',
-        nickname: 'test',
-      },
       menu: {
         title: '프로필 수정',
       },
     };
   },
   methods: {
-    submit() {
-      // validation
-      this.$refs.form.validate();
+    async submit() {
+      try {
+        if (this.$refs.form.validate()) {
+          const formData = new FormData();
+          formData.append('imgFile', this.imageFile);
+          formData.append('nickname', this.nickname);
+
+          const result = await FamenceAPI.updataMemberProfile(
+            this.member.idMember,
+            formData,
+          );
+          console.log(result);
+
+          // 완료 후 라우팅? 모달?
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    pickFile() {
+      this.$refs.image.click();
+    },
+    onFilePicked() {
+      const files = this.$refs.image.files;
+
+      if (files[0] !== undefined) {
+        const imageName = files[0].name;
+
+        if (
+          imageName.lastIndexOf('.') <= 0 ||
+          !/\.(jpg|svg|jpeg|png|bmp|gif)$/i.test(imageName)
+        ) {
+          alert('올바른 이미지를 올려주세요');
+          return;
+        }
+
+        const fr = new FileReader();
+        fr.readAsDataURL(files[0]);
+        fr.addEventListener('load', () => {
+          this.imageUrl = fr.result;
+          this.imageFile = files[0];
+        });
+      } else {
+        this.imageFile = '';
+        this.imageUrl = '';
+      }
     },
   },
   computed: {
-    selectText() {
-      return this.menu.title === '프로필 수정' ? '수정' : '확인';
-    },
+    ...mapState(['member']),
   },
 };
 </script>
 
 <style scoped>
-.layout {
+.profile-edit__wrap {
   padding: 31px;
 }
-#select-picture {
+.profile-edit__camera-button {
   top: 60px;
   left: 60px;
-}
-.bottom-sheet .v-list__tile__title {
-  font-size: 14px;
-  font-weight: 500;
 }
 </style>

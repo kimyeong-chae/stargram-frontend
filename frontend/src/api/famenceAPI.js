@@ -1,8 +1,11 @@
 import axios from 'axios';
 
 export default {
-  fetchMemberOne(memberId) {
-    return axios.get(`/api/member/${memberId}`);
+  findOneMember(idMember) {
+    return axios.get(`/api/member/${idMember}`);
+  },
+  updataMemberProfile(idMember, formData) {
+    return axios.put(`/api/member/${idMember}/profile`, formData);
   },
   findOneProject(seqProject) {
     return axios.get(`/api/project/${seqProject}`);
