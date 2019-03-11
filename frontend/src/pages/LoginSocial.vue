@@ -65,8 +65,10 @@
 
 <script>
 import ToolBar from '../components/ToolBar';
+import { mapActions } from 'vuex';
 
 export default {
+
   name: 'LoginSocial',
   components: {
     ToolBar,
@@ -103,6 +105,7 @@ export default {
                     .get('https://www.googleapis.com/plus/v1/people/me')
                     .then((response) => {
                       console.log('google response :', response);
+                      response.data.name = response.data.displayName;
                       return resolve(response);
                     })
                     .catch(err => reject(err));
@@ -123,6 +126,8 @@ export default {
               .post('http://localhost:8080/api/auth/login', response.data)
               .then((user) => {
                 console.log('login user : ', user);
+                this.setMember(user.data.user);
+                this.$router.push('/');
               });
           }
         })
@@ -131,6 +136,7 @@ export default {
           alert('Login Failed!!!');
         });
     },
+    ...mapActions(['setMember']),
   },
 };
 </script>

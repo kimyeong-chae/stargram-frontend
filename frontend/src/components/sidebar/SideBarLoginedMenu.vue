@@ -97,6 +97,7 @@ export default {
   },
   filters: {
     numberWithComma(value) {
+      if (!value) return value;
       return value
         .toString()
         .split('')

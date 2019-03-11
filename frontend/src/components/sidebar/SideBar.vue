@@ -26,14 +26,17 @@ import { mapState, mapActions } from 'vuex';
 
 export default {
   components: {
-    SideBarMenu: () => import('@/components/Sidebar/SideBarMenu'),
-    SideBarLoginedMenu: () => import('@/components/Sidebar/SideBarLoginedMenu'),
+    SideBarMenu: () => import('@/components/sidebar/SideBarMenu'),
+    SideBarLoginedMenu: () => import('@/components/sidebar/SideBarLoginedMenu'),
   },
   data() {
     return {};
   },
+  created() {
+    this.getMember();
+  },
   methods: {
-    ...mapActions(['toggleDrawer']),
+    ...mapActions(['toggleDrawer', 'getMember']),
   },
   computed: {
     ...mapState(['member', 'drawer']),

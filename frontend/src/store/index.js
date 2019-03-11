@@ -13,6 +13,15 @@ const store = new Vuex.Store({
     toggleDrawer(state) {
       state.drawer = !state.drawer;
     },
+    setMember(state, payload) {
+      localStorage.setItem('member', JSON.stringify(payload));
+      state.member = payload;
+    },
+    getMember(state, payload) {
+      let member = localStorage.getItem('member');
+      if (member)
+        state.member = JSON.parse(member);
+    },
     fetchMemberOne(state, payload) {
       state.member = payload;
     },
@@ -20,6 +29,12 @@ const store = new Vuex.Store({
   actions: {
     toggleDrawer({ commit }) {
       commit('toggleDrawer');
+    },
+    setMember({ commit }, member) {
+      commit('setMember', member);
+    },
+    getMember({ commit }) {
+      commit('getMember');
     },
     async fetchMemberOne({ commit }, idMember) {
       try {
