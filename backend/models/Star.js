@@ -5,20 +5,20 @@
  * @returns {*}
  */
 module.exports = (sequelize, DataTypes) => {
-    const Star = sequelize.define('Star', {
-        seqStar: {
-            field: 'seq_star',
-            type: DataTypes.INTEGER(8),
-            autoIncrement: true,
-            primaryKey: true
-        },
-    }, {
-        tableName: `star`
-    });
+  const Star = sequelize.define('Star', {
+    seqStar: {
+      field: 'seq_star',
+      type: DataTypes.INTEGER(8),
+      autoIncrement: true,
+      primaryKey: true,
+    },
+  }, {
+    tableName: 'star',
+  });
 
-    Star.associate = function(models) {
+  Star.associate = function (models) {
 
-    };
+  };
 
-    return Star;
+  return Star;
 };

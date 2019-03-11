@@ -5,56 +5,56 @@
  * @returns {*}
  */
 module.exports = (sequelize, DataTypes) => {
-    const Member = sequelize.define('Member', {
-        seqMember: {
-            field: 'seq_member',
-            type: DataTypes.INTEGER(8),
-            autoIncrement: true,
-            primaryKey: true
-        },
-        idMember: {
-            field: 'idMember',
-            type: DataTypes.STRING(50),
-            unique: true
-        },
-        pwPayment: {
-            field: 'pw_payment',
-            type: DataTypes.STRING(128),
-        },
-        name: {
-            field: 'name',
-            type: DataTypes.STRING(50),
-        },
-        nickname: {
-            field: 'nickname',
-            type: DataTypes.STRING(30),
-        },
-        profileUrl: {
-            field: 'profile_url',
-            type: DataTypes.STRING(50),
-        },
-        email: {
-            field: 'email',
-            type: DataTypes.STRING(50),
-        },
-        status: {
-            field: 'status',
-            type: DataTypes.STRING(8),
-        },
-        nmJoinClass: {
-            field: 'nm_join_class',
-            type: DataTypes.STRING(30),
-        },
-        heartBalance: {
-            field: 'heart_balance',
-            type: DataTypes.INTEGER(12),
-        }
-    }, {
-        tableName: `member`
-    });
+  const Member = sequelize.define('Member', {
+    seqMember: {
+      field: 'seq_member',
+      type: DataTypes.INTEGER(8),
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    idMember: {
+      field: 'idMember',
+      type: DataTypes.STRING(50),
+      unique: true,
+    },
+    pwPayment: {
+      field: 'pw_payment',
+      type: DataTypes.STRING(128),
+    },
+    name: {
+      field: 'name',
+      type: DataTypes.STRING(50),
+    },
+    nickname: {
+      field: 'nickname',
+      type: DataTypes.STRING(30),
+    },
+    profileUrl: {
+      field: 'profile_url',
+      type: DataTypes.STRING(50),
+    },
+    email: {
+      field: 'email',
+      type: DataTypes.STRING(50),
+    },
+    status: {
+      field: 'status',
+      type: DataTypes.STRING(8),
+    },
+    nmJoinClass: {
+      field: 'nm_join_class',
+      type: DataTypes.STRING(30),
+    },
+    heartBalance: {
+      field: 'heart_balance',
+      type: DataTypes.INTEGER(12),
+    },
+  }, {
+    tableName: 'member',
+  });
 
-    Member.associate = function(models) {
-    };
+  Member.associate = function (models) {
+  };
 
-    return Member;
+  return Member;
 };
