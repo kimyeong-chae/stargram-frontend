@@ -23,7 +23,7 @@ const store = new Vuex.Store({
         state.member = JSON.parse(member);
       }
     },
-    fetchMemberOne(state, payload) {
+    findOneMember(state, payload) {
       state.member = payload;
     },
   },
@@ -37,9 +37,9 @@ const store = new Vuex.Store({
     getMember({ commit }) {
       commit('getMember');
     },
-    async fetchMemberOne({ commit }, idMember) {
+    async findOneMember({ commit }, idMember) {
       try {
-        const response = await FamenceAPI.fetchMemberOne(idMember);
+        const response = await FamenceAPI.findOneMember(idMember);
         commit('fetchMemberOne', response.data);
       } catch (error) {
         // implementation error handling
