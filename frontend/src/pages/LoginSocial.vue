@@ -82,52 +82,60 @@ export default {
     authenticate(provider) {
       this.response = null;
 
-      this.$auth
-        .authenticate(provider)
-        .then(
-          authResponse =>
-            new Promise((resolve, reject) => {
-              switch (provider) {
-                case 'facebook':
-                  this.axios
-                    .get('https://graph.facebook.com/me', {
-                      params: { access_token: this.$auth.getToken() },
-                    })
-                    .then(response => resolve(response))
-                    .catch(err => reject(err));
-                  break;
-                case 'google':
-                  this.axios
-                    .get('https://www.googleapis.com/plus/v1/people/me')
-                    .then((response) => {
-                      const result = response;
-                      result.data.name = result.data.displayName;
-                      return resolve(response);
-                    })
-                    .catch(err => reject(err));
-                  break;
-                case 'instagram':
-                  return resolve(authResponse);
-                default:
-                  this.response = null;
-              }
-              return reject(null);
-            }),
+      this.$auth.authenticate(provider)
+        .then(authResponse => new Promise((resolve, reject) => {
+          switch (provider) {
+            case 'facebook': {
+              this.axios
+                .get('https://graph.facebook.com/me', {
+                  params: { access_token: this.$auth.getToken() },
+                })
+                .then(response => resolve(response))
+                .catch(err => reject(err));
+              break;
+            }
+            case 'google': {
+              this.axios
+                .get('https://www.googleapis.com/plus/v1/people/me')
+                .then((response) => {
+                  const result = response;
+                  result.data.name = result.data.displayName;
+                  return resolve(response);
+                })
+                .catch(err => reject(err));
+              break;
+            }
+            case 'instagram': {
+              const result = authResponse.data;
+              result.id = result.user.id;
+              result.name = result.user.full_name;
+              return resolve(result);
+            }
+            default: {
+              this.response = null;
+            }
+          }
+          return reject(null);
+        }),
         ).then((response) => {
           if (response) {
             const result = response;
-            result.data.provider = provider;
 
-            this.axios
-              .post('http://localhost:8080/api/auth/login', result)
-              .then((user) => {
-                this.setMember(user.data.user);
-                this.$router.push('/');
-              });
+            if (!result.data) {
+              result.data = {};
+              result.data.provider = provider;
+            } else {
+              result.data.provider = provider;
+            }
+
+            this.axios.post('http://localhost:8080/api/auth/login', result).then((user) => {
+              this.setMember(user.data.user);
+              this.$router.push('/');
+            });
           }
-        })
-        .catch((err) => {
-          alert('Login Failed!!! ', err);
+        }).catch((err) => {
+          console.log(err);
+          alert('Login Failed!!! ');
         });
     },
     ...mapActions(['setMember']),

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import VuexPersistence from 'vuex-persist';
 import FamenceAPI from '../api/famenceAPI';
 
 Vue.use(Vuex);
@@ -14,14 +15,10 @@ const store = new Vuex.Store({
       state.drawer = !state.drawer;
     },
     setMember(state, payload) {
-      localStorage.setItem('member', JSON.stringify(payload));
       state.member = payload;
     },
     getMember(state) {
-      const member = localStorage.getItem('member');
-      if (member) {
-        state.member = JSON.parse(member);
-      }
+      return state.member;
     },
     fetchMemberOne(state, payload) {
       state.member = payload;
@@ -46,6 +43,7 @@ const store = new Vuex.Store({
       }
     },
   },
+  plugins: [new VuexPersistence().plugin],
 });
 
 export default store;

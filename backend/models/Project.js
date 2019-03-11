@@ -5,71 +5,71 @@
  * @returns {*}
  */
 module.exports = (sequelize, DataTypes) => {
-    const Project = sequelize.define('Project', {
-        seqProject: {
-            field: 'seq_project',
-            type: DataTypes.INTEGER(8),
-            autoIncrement: true,
-            primaryKey: true,
-        },
-        seqStar: {
-            field: 'seq_star',
-            type: DataTypes.INTEGER(8),
-        },
-        cntHeartGoal: {
-            field: 'cnt_heart_goal',
-            type: DataTypes.INTEGER(8),
-        },
-        dtProjectStart: {
-            field: 'dt_project_start',
-            type: DataTypes.DATE,
-        },
-        dtProjectEnd: {
-            field: 'dt_project_end',
-            type: DataTypes.DATE,
-        },
-        title: {
-            field: 'title',
-            type: DataTypes.STRING(300),
-        },
-        comment: {
-            field: 'comment',
-            type: DataTypes.STRING(500),
-        },
-        content: {
-            field: 'content',
-            type: DataTypes.STRING(2000),
-        },
-        status: {
-            field: 'status',
-            type: DataTypes.STRING(10),
-        },
-        resultMessage: {
-            field: 'result_message',
-            type: DataTypes.STRING(300),
-        },
-        resultLink: {
-            field: 'result_link',
-            type: DataTypes.STRING(300),
-        },
-    }, {
-        tableName: 'project',
+  const Project = sequelize.define('Project', {
+    seqProject: {
+      field: 'seq_project',
+      type: DataTypes.INTEGER(8),
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    seqStar: {
+      field: 'seq_star',
+      type: DataTypes.INTEGER(8),
+    },
+    cntHeartGoal: {
+      field: 'cnt_heart_goal',
+      type: DataTypes.INTEGER(8),
+    },
+    dtProjectStart: {
+      field: 'dt_project_start',
+      type: DataTypes.DATE,
+    },
+    dtProjectEnd: {
+      field: 'dt_project_end',
+      type: DataTypes.DATE,
+    },
+    title: {
+      field: 'title',
+      type: DataTypes.STRING(300),
+    },
+    comment: {
+      field: 'comment',
+      type: DataTypes.STRING(500),
+    },
+    content: {
+      field: 'content',
+      type: DataTypes.STRING(2000),
+    },
+    status: {
+      field: 'status',
+      type: DataTypes.STRING(10),
+    },
+    resultMessage: {
+      field: 'result_message',
+      type: DataTypes.STRING(300),
+    },
+    resultLink: {
+      field: 'result_link',
+      type: DataTypes.STRING(300),
+    },
+  }, {
+    tableName: 'project',
+  });
+
+  Project.associate = function (models) {
+    Project.hasMany(models.ProjectAttach, {
+      foreignKey: 'seqProject',
+      constraints: true,
     });
+    Project.hasMany(models.ProjectComment, {
+      foreignKey: 'seqProject',
+      constraints: true,
+    });
+    Project.hasMany(models.HeartHist, {
+      foreignKey: 'seqProject',
+      constraints: true,
+    });
+  };
 
-    Project.associate = function(models) {
-        Project.hasMany(models.ProjectAttach, {
-            foreignKey: 'seqProject',
-            constraints: true,
-        });
-        Project.hasMany(models.ProjectComment, {
-            foreignKey: 'seqProject',
-            constraints: true,
-        });
-        Project.hasMany(models.HeartHist, {
-            foreignKey: 'seqProject',
-            constraints: true,
-        });
-    };
-
-    return Project;
+  return Project;
 };

@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true,
     },
-    seqSponsor: {
+    seqMember: {
       field: 'seq_member',
       type: DataTypes.INTEGER(8),
     },
@@ -43,7 +43,9 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   HeartHist.associate = function (models) {
-
+    HeartHist.belongsTo(models.Member, {
+      foreignKey: 'seqMember',
+    });
   };
 
   const options = {

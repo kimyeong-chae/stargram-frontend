@@ -110,6 +110,7 @@ router.get('/project/:seqProject/projectComment', (req, res) => {
     order: [
       ['createdAt'],
     ],
+    // eslint-disable-next-line radix
     limit: req.query.pageSize ? parseInt(req.query.pageSize) : 5,
   };
 
@@ -120,6 +121,34 @@ router.get('/project/:seqProject/projectComment', (req, res) => {
 
   Model.ProjectComment.paginate(findOption).then((project) => {
     res.json(project);
+  }).catch((err) => {
+    res.send(500, err);
+  });
+});
+
+/**
+ * 프로젝트 댓글 조회
+ */
+router.get('/project/:seqProject/heartHist', (req, res) => {
+  const findOption = {
+    where: {
+      seqProject: req.params.seqProject,
+    },
+    include: [
+      { model: Model.Member },
+    ],
+    order: [
+      ['heart', 'DSC'],
+    ],
+    // eslint-disable-next-line radix
+    limit: req.query.pageSize ? parseInt(req.query.pageSize) : 5,
+  };
+
+  if (req.query.before) { findOption.before = req.query.before; }
+  if (req.query.after) { findOption.after = req.query.after; }
+
+  Model.HeartHist.paginate(findOption).then((heartHist) => {
+    res.json(heartHist);
   }).catch((err) => {
     res.send(500, err);
   });
