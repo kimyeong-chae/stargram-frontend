@@ -113,7 +113,8 @@ export default {
               }
               return reject(null);
             }),
-        ).then((response) => {
+        )
+        .then((response) => {
           if (response) {
             const result = response;
             result.data.provider = provider;
