@@ -20,8 +20,8 @@
               </v-flex>
 
               <v-flex class="py-1" align-self-center grow>
-                <div class="project-reply-text__1">{{comment.createdBy}}</div>
-                <div class="project-reply-text__2">{{comment.createdAt | moment("YYYY. MM. DD. h:mm:ss")}}</div>
+                <div class="project-reply-id">{{comment.createdBy}}</div>
+                <div class="project-reply-date">{{comment.createdAt | moment("YYYY. MM. DD. h:mm:ss")}}</div>
               </v-flex>
 
               <v-flex align-self-center shrink>
@@ -35,7 +35,7 @@
                                 <img :src="user.profileUrl" alt="alt">
                               </v-avatar>
                               <span class="project-img--overlap-2">
-                                <img src="../assets/images/heart-icon-bg-2.png">
+                                <img src="../../assets/images/heart-icon-bg-2.png">
                               </span>
                             </div>
                           </span>
@@ -48,7 +48,7 @@
           <v-flex class="py-0" xs12>
             <v-layout class="ma-0">
               <v-flex class="pt-0 project-reply-list-bottom" align-self-center>
-                <div class="project-reply-text__3">
+                <div class="project-reply-content">
                   {{comment.commentContent}}
                 </div>
               </v-flex>
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-  import famenceAPI from '../api/famenceAPI';
+  import famenceAPI from '../../api/famenceAPI';
 
   export default {
     props: ['seqProject'],
@@ -81,29 +81,19 @@
         pageSize: 5,
       }
     },
-    watch: {
-      seqProject(afterSeqProject) {
-        console.log('afterSeqProject : ',afterSeqProject);
-
-      }
-    },
-    mounted() {
+    created() {
       this.setComments();
     },
     methods: {
       async setComments() {
-        console.log('this.props.seqProject : ', this.seqProject);
         let option = {
           seqProject: this.seqProject,
           pageSize: this.pageSize,
         };
         let result = await famenceAPI.findAllProjectComment(option);
         console.log('result : ', result);
-        this.hasNext = result.data.cursors.hasNext;
-        this.after = result.data.cursors.after;
-        this.comments = result.data.results;
+        this.setResult(result, true);
       },
-
       async appendComments() {
         let option = {
           seqProject: this.seqProject,
@@ -111,10 +101,17 @@
           after: this.after
         };
         let result = await famenceAPI.findAllProjectComment(option);
+        this.setResult(result, false);
+      },
+      setResult(result, isInit) {
         this.hasNext = result.data.cursors.hasNext;
         this.after = result.data.cursors.after;
-        this.comments.push(...result.data.results);
-      },
+
+        if (isInit)
+          this.comments = result.data.results;
+        else
+          this.comments.push(...result.data.results);
+      }
     }
   }
 </script>
@@ -175,17 +172,17 @@
   .project-reply-list-bottom {
     margin-left: 31px;
   }
-  .project-reply-text__1 {
+  .project-reply-id {
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 600;
     color: #333333;
   }
-  .project-reply-text__2 {
+  .project-reply-date {
     font-size: 11px;
     font-weight: 500;
     color: #b0b0b0;
   }
-  .project-reply-text__3 {
+  .project-reply-content {
     font-family: NotoSansKR;
     font-size: 12px;
     line-height: 1.25;

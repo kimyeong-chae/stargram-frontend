@@ -25,10 +25,6 @@
     "instagram": {
       "clientId": "58a00d5d1eb049e9a6a76941ef8a5f01",
       "clientSecret": "1420d7d6b31e43b4ae5f3b35a3301f76"
-    },
-    "twitter": {
-      "clientId": "",
-      "clientSecret": ""
     }
   }
 }

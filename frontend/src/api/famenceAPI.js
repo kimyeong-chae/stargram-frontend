@@ -14,5 +14,8 @@ export default {
       url += `&after=${after}`;
     }
     return axios.get(url);
-  }
+  },
+  findAllProjectSponsor() {
+
+  },
 };

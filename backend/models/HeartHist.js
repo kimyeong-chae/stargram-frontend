@@ -5,8 +5,10 @@
  * @returns {*}
  */
 module.exports = (sequelize, DataTypes) => {
+    const withPagination = require('sequelize-cursor-paginate');
+
     const HeartHist = sequelize.define('HeartHist', {
-        seqStarSponsor: {
+        seqHeartHist: {
             field: 'seq_heart_hist',
             type: DataTypes.INTEGER(10),
             autoIncrement: true,
@@ -44,5 +46,11 @@ module.exports = (sequelize, DataTypes) => {
 
     };
 
+    const options = {
+        methodName: 'paginate',
+        primaryKeyField: 'seqHeartHist',
+    };
+
+    withPagination(options)(HeartHist);
     return HeartHist;
 };

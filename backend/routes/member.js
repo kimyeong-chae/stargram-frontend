@@ -37,7 +37,7 @@ router.get('/member/:idMember', (req, res ,next) => {
 });
 
 /**
- * 회원 프로필 등록 및 수정
+ * 회원 프로필 수정
  */
 router.put('/member/:idMember/profile', upload.single("imgFile"), (req, res, next) => {
     let imgFile = req.file;
@@ -54,7 +54,5 @@ router.put('/member/:idMember/profile', upload.single("imgFile"), (req, res, nex
         res.send(500);
     });
 });
-
-
 
 module.exports = router;
