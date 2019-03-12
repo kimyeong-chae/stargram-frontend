@@ -8,7 +8,16 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     drawer: false,
-    member: {},
+    member: {
+      name: '',
+      nickname: '',
+      email: '',
+      idMember: '',
+      status: '',
+      heartBalance: 0,
+      profileUrl: '',
+      nmJoinClass: '',
+    },
     authToken: null,
   },
   mutations: {
@@ -18,11 +27,12 @@ const store = new Vuex.Store({
     setMember(state, payload) {
       state.member = payload;
     },
-    getMember(state) {
-      return state.member;
-    },
     findOneMember(state, payload) {
       state.member = payload;
+    },
+    updateMemberProfile(state, payload) {
+      state.member.nickname = payload.nickname;
+      state.member.profileUrl = payload.profileUrl;
     },
     setToken(state, payload) {
       state.authToken = payload;
@@ -35,13 +45,22 @@ const store = new Vuex.Store({
     setMember({ commit }, member) {
       commit('setMember', member);
     },
-    getMember({ commit }) {
-      commit('getMember');
-    },
     async findOneMember({ commit }, idMember) {
       try {
         const response = await FamenceAPI.findOneMember(idMember);
         commit('fetchMemberOne', response.data);
+      } catch (error) {
+        // implementation error handling
+      }
+    },
+    async updateMemberProfile({ commit }, formData) {
+      try {
+        const response = await FamenceAPI.updateMemberProfile(
+          this.member.idMember,
+          formData,
+        );
+        commit('updateMemberProfile', response.data);
+        // 완료 후 라우팅? 모달?
       } catch (error) {
         // implementation error handling
       }
@@ -54,7 +73,7 @@ const store = new Vuex.Store({
       commit('setMember', '');
     },
   },
-  plugins: [new VuexPersistence({ modules: ['member', 'token']}).plugin],
+  plugins: [new VuexPersistence({ modules: ['member', 'token'] }).plugin],
 });
 
 export default store;
