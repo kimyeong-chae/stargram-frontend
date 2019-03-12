@@ -20,7 +20,7 @@
     <v-list class="sidebar-menu-contents">
       <div class="sidebar-menu-contents__header">하트 관리</div>
 
-      <v-list-tile to="/heart">
+      <v-list-tile :to="`/member/${member.idMember}/coin`">
         <v-list-tile-content>
           <v-container class="pa-0" fill-height>
             <v-layout align-center>
@@ -35,7 +35,7 @@
               <v-flex grow>
                 <span
                   class="sidebar-menu-contents__text"
-                >{{ member.cntHeartBalance | numberWithComma }} heart</span>
+                >{{ member.heartBalance | numberWithComma }} heart</span>
               </v-flex>
             </v-layout>
           </v-container>
@@ -65,8 +65,6 @@
 
         <v-divider class="my-1"></v-divider>
       </div>
-
-      <v-divider class="my-1"></v-divider>
     </v-list>
 
     <v-list class="sidebar-menu-contents">
@@ -111,7 +109,6 @@ export default {
   },
   filters: {
     numberWithComma(value) {
-      if (!value) return value;
       return value
         .toString()
         .split('')
