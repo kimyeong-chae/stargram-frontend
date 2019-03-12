@@ -9,9 +9,6 @@ import axios from 'axios';
 import Vuetify from 'vuetify';
 import VueAxios from 'vue-axios';
 import 'vuetify/dist/vuetify.min.css';
-import VeeValidate from 'vee-validate';
-import veeKo from 'vee-validate/dist/locale/ko';
-import veeEn from 'vee-validate/dist/locale/en';
 import VueI18n from 'vue-i18n';
 import VueMoment from 'vue-moment';
 import VueAuthenticate from 'vue-authenticate';
@@ -55,24 +52,24 @@ Vue.use(VueAuthenticate, {
       redirectUri: 'http://localhost:8080/auth/google', // Your client app URL
     },
   },
-  bindRequestInterceptor () {
+  bindRequestInterceptor() {
     this.$http.interceptors.request.use((config) => {
       if (this.isAuthenticated()) {
-        config.headers['Authorization'] = [
-          this.options.tokenType, this.getToken()
-        ].join(' ')
+        config.headers.Authorization = [
+          this.options.tokenType, this.getToken(),
+        ].join(' ');
       } else {
-        delete config.headers['Authorization']
+        delete config.headers.Authorization;
       }
-      return config
-    })
+      return config;
+    });
   },
 
-  bindResponseInterceptor () {
+  bindResponseInterceptor() {
     this.$http.interceptors.response.use((response) => {
-      this.setToken(response)
-      return response
-    })
+      this.setToken(response);
+      return response;
+    });
   },
 });
 
