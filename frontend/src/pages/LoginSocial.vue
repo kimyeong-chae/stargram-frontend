@@ -82,6 +82,7 @@ export default {
     authenticate(provider) {
       this.response = null;
 
+      const this_ = this;
       this.$auth
         .authenticate(provider)
         .then(
@@ -89,20 +90,19 @@ export default {
             new Promise((resolve, reject) => {
               switch (provider) {
                 case 'facebook':
-                  this.axios
-                    .get('https://graph.facebook.com/me', {
-                      params: { access_token: this.$auth.getToken() },
+                  this_.$http.get('https://graph.facebook.com/me', {
+                      params: { access_token: this_.$auth.getToken() },
                     })
-                    .then(response => resolve(response))
+                    .then(response => resolve(response.data))
                     .catch(err => reject(err));
                   break;
                 case 'google':
-                  this.axios
+                  this_.axios
                     .get('https://www.googleapis.com/plus/v1/people/me')
                     .then((response) => {
                       const result = response;
                       result.data.name = result.data.displayName;
-                      return resolve(response);
+                      return resolve(result.data);
                     })
                     .catch(err => reject(err));
                   break;
@@ -112,9 +112,8 @@ export default {
                   result.name = result.user.full_name;
                   return resolve(result);
                 default:
-                  this.response = null;
+                  this_.response = null;
               }
-              return reject(null);
             }),
         )
         .then((response) => {
@@ -128,7 +127,7 @@ export default {
               result.data.provider = provider;
             }
 
-            this.axios
+            this_.axios
               .post('http://localhost:8080/api/auth/login', result)
               .then((user) => {
                 this.setMember(user.data.user);
