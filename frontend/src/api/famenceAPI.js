@@ -4,7 +4,7 @@ export default {
   findOneMember(idMember) {
     return axios.get(`/api/member/${idMember}`);
   },
-  updataMemberProfile(idMember, formData) {
+  updateMemberProfile(idMember, formData) {
     return axios.put(`/api/member/${idMember}/profile`, formData);
   },
   findOneProject(seqProject) {

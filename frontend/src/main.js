@@ -23,21 +23,12 @@ import messages from './lang';
 Vue.config.productionTip = false;
 
 Vue.use(VueAxios, axios);
-const token = localStorage.getItem('authToken')
+const token = localStorage.getItem('authToken');
 if (token) {
-  axios.defaults.headers.common['x-access-token'] = token
+  axios.defaults.headers.common['x-access-token'] = token;
 }
 
 Vue.use(Vuetify);
-const config = {
-  locale: 'ko',
-  dictionary: {
-    ko: veeKo,
-    en: veeEn,
-  },
-};
-
-Vue.use(VeeValidate, config);
 
 Vue.use(VueMoment);
 
@@ -64,7 +55,7 @@ Vue.use(VueAuthenticate, {
       redirectUri: 'http://localhost:8080/auth/google', // Your client app URL
     },
   },
-  bindRequestInterceptor: function () {
+  bindRequestInterceptor () {
     this.$http.interceptors.request.use((config) => {
       if (this.isAuthenticated()) {
         config.headers['Authorization'] = [
@@ -77,12 +68,12 @@ Vue.use(VueAuthenticate, {
     })
   },
 
-  bindResponseInterceptor: function () {
+  bindResponseInterceptor () {
     this.$http.interceptors.response.use((response) => {
       this.setToken(response)
       return response
     })
-  }
+  },
 });
 
 

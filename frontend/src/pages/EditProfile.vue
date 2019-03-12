@@ -84,7 +84,7 @@ export default {
           formData.append('imgFile', this.imageFile);
           formData.append('nickname', this.nickname);
 
-          const result = await FamenceAPI.updataMemberProfile(
+          const result = await FamenceAPI.updateMemberProfile(
             this.member.idMember,
             formData,
           );
