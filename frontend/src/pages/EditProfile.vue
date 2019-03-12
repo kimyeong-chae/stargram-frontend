@@ -53,7 +53,6 @@
 <script>
 import { mapState } from 'vuex';
 import defaultImagePath from '@/assets/images/profile-image-default@2x.png';
-import FamenceAPI from '@/api/famenceAPI';
 import ToolBar from '../components/ToolBar';
 
 export default {
@@ -84,13 +83,7 @@ export default {
           formData.append('imgFile', this.imageFile);
           formData.append('nickname', this.nickname);
 
-          const result = await FamenceAPI.updateMemberProfile(
-            this.member.idMember,
-            formData,
-          );
-          console.log(result);
-
-          // 완료 후 라우팅? 모달?
+          this.$store.dispatch('updateMemberProfile', formData);
         }
       } catch (error) {
         console.error(error);
