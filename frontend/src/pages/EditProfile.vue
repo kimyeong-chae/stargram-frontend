@@ -5,7 +5,7 @@
     <v-layout class="profile-edit__wrap" wrap row>
       <v-flex class="py-2" xs12 sm6>
         <v-avatar extended size="90">
-          <v-img :src="imageUrl || member.profileUrl || defaultImagePath"></v-img>
+          <v-img :src="member.profileUrl || defaultImagePath"></v-img>
 
           <v-btn
             class="profile-edit__camera-button"
@@ -25,7 +25,7 @@
       <v-flex class="py-2" xs12>
         <v-form enctype="multipart/form-data" ref="form" @submit.prevent="submit" v-model="valid">
           <v-text-field
-            v-model="nickname"
+            v-model="member.nickname"
             :rules="nicknameRules"
             flat
             color="#745bf5"
@@ -53,6 +53,7 @@
 <script>
 import { mapState } from 'vuex';
 import defaultImagePath from '@/assets/images/profile-image-default@2x.png';
+import FamenceAPI from '@/api/famenceAPI';
 import ToolBar from '../components/ToolBar';
 
 export default {
@@ -63,8 +64,6 @@ export default {
     return {
       defaultImagePath,
       valid: false,
-      nickname: '',
-      imageUrl: '',
       imageFile: '',
       nicknameRules: [
         v => !!v || '닉네임을 입력해주세요.',
@@ -81,9 +80,19 @@ export default {
         if (this.$refs.form.validate()) {
           const formData = new FormData();
           formData.append('imgFile', this.imageFile);
-          formData.append('nickname', this.nickname);
+          formData.append('nickname', this.member.nickname);
 
-          this.$store.dispatch('updateMemberProfile', formData);
+          // 기존 프로필 삭제 로직 필요?
+
+          const response = await FamenceAPI.updateMemberProfile(
+            this.member.idMember,
+            formData,
+          );
+          console.log(response);
+
+          this.$store.dispatch('setMember', this.member);
+
+          // 완료 후 라우팅? 모달?
         }
       } catch (error) {
         console.error(error);
@@ -92,8 +101,8 @@ export default {
     pickFile() {
       this.$refs.image.click();
     },
-    onFilePicked() {
-      const files = this.$refs.image.files;
+    onFilePicked(e) {
+      const files = e.target.files;
 
       if (files[0] !== undefined) {
         const imageName = files[0].name;
@@ -109,12 +118,12 @@ export default {
         const fr = new FileReader();
         fr.readAsDataURL(files[0]);
         fr.addEventListener('load', () => {
-          this.imageUrl = fr.result;
+          this.member.profileUrl = fr.result;
           this.imageFile = files[0];
         });
       } else {
+        this.member.profileUrl = '';
         this.imageFile = '';
-        this.imageUrl = '';
       }
     },
   },
