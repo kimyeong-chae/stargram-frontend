@@ -115,32 +115,29 @@ export default {
                   this_.response = null;
               }
             }),
-        )
-        .then((response) => {
+        ).then((response) => {
           if (response) {
             const result = response;
 
-            if (!result.data) {
-              result.data = {};
-              result.data.provider = provider;
-            } else {
-              result.data.provider = provider;
+            if (!result.provider) {
+              result.provider = provider;
             }
 
             this_.axios
-              .post('http://localhost:8080/api/auth/login', result)
-              .then((user) => {
-                this.setMember(user.data.user);
+              .post('http://localhost:8080/api/auth/token', result)
+              .then((result) => {
+                console.log('result : ', result);
+                this.setMember(result.data.member);
+                this.setToken(result.data.token);
                 this.$router.push('/');
               });
           }
-        })
-        .catch((err) => {
+        }).catch((err) => {
           console.log(err);
           alert('Login Failed!!! ');
         });
     },
-    ...mapActions(['setMember']),
+    ...mapActions(['setMember', 'setToken']),
   },
 };
 </script>

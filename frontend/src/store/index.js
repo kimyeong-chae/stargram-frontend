@@ -9,6 +9,7 @@ const store = new Vuex.Store({
   state: {
     drawer: false,
     member: {},
+    authToken: null,
   },
   mutations: {
     toggleDrawer(state) {
@@ -22,6 +23,9 @@ const store = new Vuex.Store({
     },
     findOneMember(state, payload) {
       state.member = payload;
+    },
+    setToken(state, payload) {
+      state.authToken = payload;
     },
   },
   actions: {
@@ -42,8 +46,15 @@ const store = new Vuex.Store({
         // implementation error handling
       }
     },
+    setToken({ commit }, token) {
+      commit('setToken', token);
+    },
+    logout({ commit }) {
+      commit('setToken', '');
+      commit('setMember', '');
+    },
   },
-  plugins: [new VuexPersistence().plugin],
+  plugins: [new VuexPersistence({ modules: ['member', 'token']}).plugin],
 });
 
 export default store;

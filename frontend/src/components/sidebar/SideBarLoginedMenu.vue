@@ -53,7 +53,7 @@
       <div class="sidebar-menu-contents__header">{{ category.header }}</div>
 
       <div v-for="item in category.items" :key="item.title">
-        <v-list-tile to="item.link">
+        <v-list-tile :to="item.link">
           <v-list-tile-content>
             <v-list-tile-title>{{ item.title }}</v-list-tile-title>
           </v-list-tile-content>
@@ -65,12 +65,26 @@
 
         <v-divider class="my-1"></v-divider>
       </div>
+
+      <v-divider class="my-1"></v-divider>
+    </v-list>
+
+    <v-list class="sidebar-menu-contents">
+      <v-list-tile @click="logout()">
+        <v-list-tile-content>
+          <v-list-tile-title>{{ $t('comm.로그아웃') }}</v-list-tile-title>
+        </v-list-tile-content>
+
+        <v-list-tile-action>
+          <img src="@/assets/images/arrow-bg.png" alt="arrow-icon">
+        </v-list-tile-action>
+      </v-list-tile>
     </v-list>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'SideBarLoginedMenu',
@@ -109,6 +123,9 @@ export default {
         .reverse()
         .join('');
     },
+  },
+  methods: {
+    ...mapActions(['logout']),
   },
 };
 </script>

@@ -26,6 +26,7 @@ router.get('/project', (req, res) => {
  * 프로젝트 단건 조회
  */
 router.get('/project/:seqProject', (req, res) => {
+  console.log('req.headers : ',req.headers);
   Model.Project.findOne({
     where: {
       seqProject: req.params.seqProject,

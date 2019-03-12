@@ -4,7 +4,6 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const passport = require('passport');
 const bodyParser = require('body-parser');
 const index = require('./routes/index');
 const member = require('./routes/member');
@@ -22,10 +21,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
-app.use(passport.initialize());
-app.use(passport.session());
-
-require('./config/passport-config');
 
 app.use('/', index);
 app.use('/api', login);

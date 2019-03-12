@@ -1,22 +1,93 @@
 const express = require('express');
 
 const router = express.Router();
-const passport = require('passport');
 const axios = require('axios');
 const Request = require('request');
 const config = require('../config/config.json');
-
+const fs = require('fs');
+const jwt = require('jsonwebtoken');
+const Model = require('../models');
 
 /**
- * 로그인
+ * jwt token 발급
  */
-router.post('/auth/login', passport.authenticate('local'), (req, res) => {
-  if (req.user) {
-    console.log('req.body : ', req.body);
-    res.send(200, req.user);
+router.post('/auth/token', (req, res) => {
+  if (req.body && req.body.id && req.body.name && req.body.provider) {
+    const id = req.body.id;
+    const name = req.body.name;
+    const provider = req.body.provider;
+
+    const secretKey = fs.readFileSync('jwtRS256.key');
+    const token = jwt.sign({ id, name, provider }, secretKey, { algorithm: 'RS256', expiresIn: "1 days", issuer: "http://famence.com" });
+
+    if (token) {
+      Model.Member.findOrCreate({
+        where: { idMember: id },
+        defaults: {
+          nmJoinClass: req.body.provider,
+          name,
+        },
+      }).then(result => {
+        const member = result[0];
+        res.json({ token, member });
+      }).catch(err => {
+        console.log('POST /auth/token Error : ', err);
+        res.sendStatus(500)
+      });
+    } else {
+      console.log('POST /auth/token Token Is Null');
+      res.sendStatus(500);
+    }
   } else {
-    res.sendStatus(401);
+    res.sendStatus(400);
   }
+});
+
+/**
+ * jwt token 검증 개발단계에서만 사용
+ */
+router.get('/auth/verify', (req, res) => {
+  // read the token from header or url
+  const token = req.headers['x-access-token'] || req.query.token
+
+  // token does not exist
+  if(!token) {
+    return res.status(403).json({
+      success: false,
+      message: 'not logged in'
+    })
+  }
+
+  // create a promise that decodes the token
+  const publicKey = fs.readFileSync('jwtRS256.key.pub');
+  // create a promise that decodes the token
+  const p = new Promise(
+    (resolve, reject) => {
+      jwt.verify(token, publicKey, { algorithm: 'RS256'}, (err, decoded) => {
+        if(err) reject(err)
+        resolve(decoded)
+      })
+    }
+  )
+
+  // if token is valid, it will respond with its info
+  const respond = (token) => {
+    res.json({
+      success: true,
+      info: token
+    })
+  };
+
+  // if it has failed to verify, it will return an error message
+  const onError = (error) => {
+    res.status(403).json({
+      success: false,
+      message: error.message
+    })
+  };
+
+  // process the promise
+  p.then(respond).catch(onError);
 });
 
 
@@ -28,6 +99,7 @@ function facebookAuth(req, res) {
     code: req.body.code,
     redirect_uri: req.body.redirectUri,
   }, { 'Content-Type': 'application/json' }).then((response) => {
+    console.log('responseJson : ', response);
     const responseJson = response.data;
     res.json(responseJson);
   }).catch((err) => {
@@ -83,6 +155,7 @@ function instagramAuth(req, res) {
     try {
       if (!err && response.statusCode === 200) {
         const responseJson = JSON.parse(body);
+        console.log('responseJson : ', responseJson);
         res.json(responseJson);
       } else {
         res.status(response.statusCode).json(err);

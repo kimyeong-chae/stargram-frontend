@@ -2,7 +2,8 @@
   "comm": {
     "포인트관리": "My Heart",
     "고객지원": "Support",
-    "더보기": "View more"
+    "더보기": "View more",
+    "로그아웃": "Logout"
   },
   "project": {
     "코멘트": "Comment",

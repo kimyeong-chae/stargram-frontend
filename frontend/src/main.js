@@ -23,6 +23,10 @@ import messages from './lang';
 Vue.config.productionTip = false;
 
 Vue.use(VueAxios, axios);
+const token = localStorage.getItem('authToken')
+if (token) {
+  axios.defaults.headers.common['x-access-token'] = token
+}
 
 Vue.use(Vuetify);
 const config = {
@@ -60,6 +64,25 @@ Vue.use(VueAuthenticate, {
       redirectUri: 'http://localhost:8080/auth/google', // Your client app URL
     },
   },
+  bindRequestInterceptor: function () {
+    this.$http.interceptors.request.use((config) => {
+      if (this.isAuthenticated()) {
+        config.headers['Authorization'] = [
+          this.options.tokenType, this.getToken()
+        ].join(' ')
+      } else {
+        delete config.headers['Authorization']
+      }
+      return config
+    })
+  },
+
+  bindResponseInterceptor: function () {
+    this.$http.interceptors.response.use((response) => {
+      this.setToken(response)
+      return response
+    })
+  }
 });
 
 
