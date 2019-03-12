@@ -32,11 +32,8 @@ export default {
   data() {
     return {};
   },
-  created() {
-    this.getMember();
-  },
   methods: {
-    ...mapActions(['toggleDrawer', 'getMember']),
+    ...mapActions(['toggleDrawer']),
   },
   computed: {
     ...mapState(['member', 'drawer']),
