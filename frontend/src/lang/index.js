@@ -1,9 +1,9 @@
 import en from './en.json';
 import ko from './ko.json';
 
-const massages = {
+const messages = {
   en,
   ko,
 };
 
-export default massages;
+export default messages;
