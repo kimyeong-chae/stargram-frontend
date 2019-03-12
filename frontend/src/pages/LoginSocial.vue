@@ -107,7 +107,10 @@ export default {
                     .catch(err => reject(err));
                   break;
                 case 'instagram':
-                  return resolve(authResponse);
+                  const result = authResponse.data;
+                  result.id = result.user.id;
+                  result.name = result.user.full_name;
+                  return resolve(result);
                 default:
                   this.response = null;
               }
